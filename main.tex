@@ -5,7 +5,7 @@
 \frenchspacing % No double spacing between sentences
 \hbadness=1000000 % Turn off \hbox badness warnings
 \linespread{1.2} % Set linespace
-\titlespacing*{\subsection}{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex} % Title spacing
+
 
 % Packages
 \usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
@@ -14,6 +14,7 @@
 \usepackage{cclicenses} % For creative commons license
 \usepackage{float} % To force figure location after text
 \usepackage{graphicx} % Adds more functionality to graphics for inclusion of figures
+\usepackage{lscape} % For landscape pages
 \usepackage{lineno} % Allows use of \linenumbers to add line numbers 
 \usepackage{lmodern} % A scalable font - avoids erros due to non-sclabale fonts
 \usepackage{longtable,booktabs}  % For tables
@@ -21,17 +22,19 @@
 \usepackage[nottoc,numbib]{tocbibind} % Add references to table of contents
 \usepackage{parskip} % Adds white space between paragraphs
 \usepackage{pdflscape} % To create landscape pages that show as landscape in PDF viewer
+\usepackage{ragged2e} % Better right ragged edges (allows hyphenation)
 \usepackage{subcaption} % Allows use of subfigures
 \usepackage[super]{natbib} % Citations using superscript
 \usepackage{titlesec} % For title spacing
 \usepackage[toc,page]{appendix}
 \usepackage{url} % Tidy web links
 \usepackage[utf8]{inputenc}
+\usepackage{verbatim}
 \usepackage{xcolor} % For coloured text
 \usepackage{xurl} % For url but with more flexible linebreaking
 
 
- Choose your own colour
+% Choose your own colour
 \usepackage{color}
 \newcommand{\mjanote}[2][\textcolor{red}{\dagger}]{\textcolor{red}{$#1$}\marginpar{\color{red}\raggedright\tiny$#1$ #2}}
 \newcommand{\mjaFIXME}[1]{\textcolor{red}{[\textbf{FIXME} \textsl{#1}]}}
@@ -39,16 +42,56 @@
 \newcommand{\kpFIXME}[1]{\textcolor{magenta}{[\textbf{FIXME} \textsl{#1}]}}
 
 
+% Info on wordcounts:
+% https://www.overleaf.com/learn/how-to/Is_there_a_way_to_run_a_word_count_that_doesn%27t_include_LaTeX_commands%3F
+
+% To include refs in word count:
+%TC:incbib
+
+
+\newcommand{\detailtexcount}[1]{%
+  \immediate\write18{texcount -merge -sum -q #1.tex output.bbl > #1.wcdetail }%
+  \verbatiminput{#1.wcdetail}%
+}
+
+\newcommand{\quickwordcount}[1]{%
+  \immediate\write18{texcount -1 -sum -merge -q #1.tex output.bbl > #1-words.sum }%
+  \input{#1-words.sum} words%
+}
+
+\newcommand{\quickcharcount}[1]{%
+  \immediate\write18{texcount -1 -sum -merge -char -q #1.tex output.bbl > #1-chars.sum }%
+  \input{#1-chars.sum} characters (not including spaces)%
+}
+
+
+% Count tables in wordcount
+
+%TC:group table 0 1
+%TC:group tabular 1 1
+
 \begin{document}
 
+% Ignore title and abstract in word count
+%TC:ignore
 \include{sections/1_title}
 
 \maketitle
+%TC:endignore
 
 \newpage
-%\include{sections/paper}
-\newpage
-\include{sections/9_supplementary_material}
+
+Test text
+
+\include{tables/model_overview}
+
+Test text
+
+% Word counts - Don't count these!
+%TC:ignore
+\section{Word counts}
+\detailtexcount{main}
+%TC:endignore
 
 
 \end{document}

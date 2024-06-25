@@ -1,0 +1,94 @@
+\begin{landscape}
+{
+\RaggedRight
+\begin{table}
+\small
+\raggedright
+\begin{tabular}{|p{5cm}|p{5cm}|p{6cm}|p{6cm}|}
+
+\hline
+\textbf{Model} &  \textbf{Type} & \textbf{Required data} & \textbf{Outputs} \\
+\hline
+
+% Decision model
+\textbf{Thrombolysis decision model} 
+
+\vspace{2mm}
+
+Learns which patients will receive thrombolysis at each stroke team. & 
+
+XGBoost machine learning model + SHAP model for explianability. & 
+
+Age\newline\vspace{3pt}
+Arrival-to-scan time\newline\vspace{3pt}
+Onset during sleep (Y/N)\newline\vspace{3pt}
+Onset time type (precise/estimated)\newline\vspace{3pt}
+Onset-to-arrival time\newline\vspace{3pt}
+Pre-stroke disability (mRS)\newline\vspace{3pt}
+Stroke severity\newline\vspace{3pt}
+Stroke team\newline\vspace{3pt}
+Stroke type\newline\vspace{3pt}
+Use of anticoagulants for atrial fibrillation & 
+
+Probability of receiving thrombolysis at attended stroke team and 25 \textit{benchmark} stroke teams. \\
+
+\hline
+
+% Outcome model
+
+\textbf{Stroke outcome model}
+
+\vspace{3mm}
+
+Learns death/disability outcome depending on patient characteristics, stroke team attended, and use/time of thrombolysis. &
+
+XGBoost machine learning model + SHAP model for explainability. &
+
+Age\newline\vspace{3pt}
+Diagnosis of atrial fibrillation\newline\vspace{3pt}
+Onset time type (precise/estimated)\newline\vspace{3pt}
+Onset-to-thrombolysis time\newline\vspace{3pt}
+Pre-stroke disability (mRS)\newline\vspace{3pt}
+Stroke severity\newline\vspace{3pt}
+Stroke team\newline &
+
+Disability/death distribution (can be estimated with/without thrombolysis for any patient). \\
+
+\hline
+
+% Pathway model
+
+\textbf{Pathway model}
+
+\vspace{3mm}
+
+Models flow patients through each stroke team’s thrombolysis pathway, and predicts thrombolysis use and outcomes. &
+
+Discrete event simulation (using NumPy) array, coupled with clinical outcome model based on time to thrombolysis. &
+
+Arrival-to-scan time\newline\vspace{3pt}
+Arrive by ambulance (Y/N)\newline\vspace{3pt}
+Onset known (Y/N)\newline\vspace{3pt}
+Onset-to-arrival time\newline\vspace{3pt}
+Scan-to-thrombolysis time\newline\vspace{3pt}
+Stroke team\newline\vspace{3pt}
+Stroke type &
+
+Use of thrombolsyis and number of people mRS 0-1 under various improvement strategies:\newline\vspace{6pt}
+
+1. Current state\newline\vspace{3pt}
+2. Ascertain stroke onset times at performance of 25\textsuperscript{th} percentile stroke team\newline\vspace{3pt}
+3. 30 minutes arrival-to-thrombolysis\newline\vspace{3pt}
+4. Make decisions inline with \textit{benchmark} stroke teams\newline\vspace{3pt}
+5. Combinations of above\newline\vspace{3pt}
+\\
+
+\hline
+
+
+\end{tabular}
+\caption{SAMueL model components overview}
+\label{tab:example}
+\end{table}
+}
+\end{landscape}
