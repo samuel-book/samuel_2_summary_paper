@@ -5,7 +5,7 @@
 \frenchspacing % No double spacing between sentences
 \hbadness=1000000 % Turn off \hbox badness warnings
 \linespread{1.2} % Set linespace
-\titlespacing*{\subsection}{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex} % Title spacing
+
 
 % Packages
 \usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
@@ -14,6 +14,7 @@
 \usepackage{cclicenses} % For creative commons license
 \usepackage{float} % To force figure location after text
 \usepackage{graphicx} % Adds more functionality to graphics for inclusion of figures
+\usepackage{lscape} % For landscape pages
 \usepackage{lineno} % Allows use of \linenumbers to add line numbers 
 \usepackage{lmodern} % A scalable font - avoids erros due to non-sclabale fonts
 \usepackage{longtable,booktabs}  % For tables
@@ -21,6 +22,7 @@
 \usepackage[nottoc,numbib]{tocbibind} % Add references to table of contents
 \usepackage{parskip} % Adds white space between paragraphs
 \usepackage{pdflscape} % To create landscape pages that show as landscape in PDF viewer
+\usepackage{ragged2e} % Better right ragged edges (allows hyphenation)
 \usepackage{subcaption} % Allows use of subfigures
 \usepackage[super]{natbib} % Citations using superscript
 \usepackage{titlesec} % For title spacing
@@ -31,7 +33,7 @@
 \usepackage{xurl} % For url but with more flexible linebreaking
 
 
- Choose your own colour
+% Choose your own colour
 \usepackage{color}
 \newcommand{\mjanote}[2][\textcolor{red}{\dagger}]{\textcolor{red}{$#1$}\marginpar{\color{red}\raggedright\tiny$#1$ #2}}
 \newcommand{\mjaFIXME}[1]{\textcolor{red}{[\textbf{FIXME} \textsl{#1}]}}
@@ -46,6 +48,12 @@
 \maketitle
 
 \newpage
+
+Test text
+
+\include{tables/model_overview}
+
+Test text
 %\include{sections/paper}
 \newpage
 \include{sections/9_supplementary_material}
