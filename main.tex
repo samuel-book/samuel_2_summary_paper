@@ -1,0 +1,54 @@
+\documentclass{article}
+
+% Formatting
+\DeclareUnicodeCharacter{2060}{\nolinebreak} % Prevent unicode (U+2060) error on local complile
+\frenchspacing % No double spacing between sentences
+\hbadness=1000000 % Turn off \hbox badness warnings
+\linespread{1.2} % Set linespace
+\titlespacing*{\subsection}{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex} % Title spacing
+
+% Packages
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{authblk} % For author formatting
+\usepackage{caption} % For figure and table captions
+\usepackage{cclicenses} % For creative commons license
+\usepackage{float} % To force figure location after text
+\usepackage{graphicx} % Adds more functionality to graphics for inclusion of figures
+\usepackage{lineno} % Allows use of \linenumbers to add line numbers 
+\usepackage{lmodern} % A scalable font - avoids erros due to non-sclabale fonts
+\usepackage{longtable,booktabs}  % For tables
+\usepackage{microtype} % 'Improved' typesetting
+\usepackage[nottoc,numbib]{tocbibind} % Add references to table of contents
+\usepackage{parskip} % Adds white space between paragraphs
+\usepackage{pdflscape} % To create landscape pages that show as landscape in PDF viewer
+\usepackage{subcaption} % Allows use of subfigures
+\usepackage[super]{natbib} % Citations using superscript
+\usepackage{titlesec} % For title spacing
+\usepackage[toc,page]{appendix}
+\usepackage{url} % Tidy web links
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor} % For coloured text
+\usepackage{xurl} % For url but with more flexible linebreaking
+
+
+ Choose your own colour
+\usepackage{color}
+\newcommand{\mjanote}[2][\textcolor{red}{\dagger}]{\textcolor{red}{$#1$}\marginpar{\color{red}\raggedright\tiny$#1$ #2}}
+\newcommand{\mjaFIXME}[1]{\textcolor{red}{[\textbf{FIXME} \textsl{#1}]}}
+\newcommand{\kpnote}[2][\textcolor{magenta}{\dagger}]{\textcolor{magenta}{$#1$}\marginpar{\color{magenta}\raggedright\tiny$#1$ #2}}
+\newcommand{\kpFIXME}[1]{\textcolor{magenta}{[\textbf{FIXME} \textsl{#1}]}}
+
+
+\begin{document}
+
+\include{sections/1_title}
+
+\maketitle
+
+\newpage
+%\include{sections/paper}
+\newpage
+\include{sections/9_supplementary_material}
+
+
+\end{document}
