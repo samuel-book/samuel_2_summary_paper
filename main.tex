@@ -29,6 +29,7 @@
 \usepackage[toc,page]{appendix}
 \usepackage{url} % Tidy web links
 \usepackage[utf8]{inputenc}
+\usepackage{verbatim}
 \usepackage{xcolor} % For coloured text
 \usepackage{xurl} % For url but with more flexible linebreaking
 
@@ -41,11 +42,42 @@
 \newcommand{\kpFIXME}[1]{\textcolor{magenta}{[\textbf{FIXME} \textsl{#1}]}}
 
 
+% Info on wordcounts:
+% https://www.overleaf.com/learn/how-to/Is_there_a_way_to_run_a_word_count_that_doesn%27t_include_LaTeX_commands%3F
+
+% To include refs in word count:
+%TC:incbib
+
+
+\newcommand{\detailtexcount}[1]{%
+  \immediate\write18{texcount -merge -sum -q #1.tex output.bbl > #1.wcdetail }%
+  \verbatiminput{#1.wcdetail}%
+}
+
+\newcommand{\quickwordcount}[1]{%
+  \immediate\write18{texcount -1 -sum -merge -q #1.tex output.bbl > #1-words.sum }%
+  \input{#1-words.sum} words%
+}
+
+\newcommand{\quickcharcount}[1]{%
+  \immediate\write18{texcount -1 -sum -merge -char -q #1.tex output.bbl > #1-chars.sum }%
+  \input{#1-chars.sum} characters (not including spaces)%
+}
+
+
+% Count tables in wordcount
+
+%TC:group table 0 1
+%TC:group tabular 1 1
+
 \begin{document}
 
+% Ignore title and abstract in word count
+%TC:ignore
 \include{sections/1_title}
 
 \maketitle
+%TC:endignore
 
 \newpage
 
@@ -54,9 +86,12 @@ Test text
 \include{tables/model_overview}
 
 Test text
-%\include{sections/paper}
-\newpage
-\include{sections/9_supplementary_material}
+
+% Word counts - Don't count these!
+%TC:ignore
+\section{Word counts}
+\detailtexcount{main}
+%TC:endignore
 
 
 \end{document}
