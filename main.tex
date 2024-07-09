@@ -18,6 +18,7 @@
 \usepackage{lineno} % Allows use of \linenumbers to add line numbers 
 \usepackage{lmodern} % A scalable font - avoids erros due to non-sclabale fonts
 \usepackage{longtable,booktabs}  % For tables
+\usepackage{markdown} % Allow use of markdown syntax
 \usepackage{microtype} % 'Improved' typesetting
 \usepackage[nottoc,numbib]{tocbibind} % Add references to table of contents
 \usepackage{parskip} % Adds white space between paragraphs
@@ -48,22 +49,10 @@
 % To include refs in word count:
 %TC:incbib
 
-
 \newcommand{\detailtexcount}[1]{%
   \immediate\write18{texcount -merge -sum -q #1.tex output.bbl > #1.wcdetail }%
   \verbatiminput{#1.wcdetail}%
 }
-
-\newcommand{\quickwordcount}[1]{%
-  \immediate\write18{texcount -1 -sum -merge -q #1.tex output.bbl > #1-words.sum }%
-  \input{#1-words.sum} words%
-}
-
-\newcommand{\quickcharcount}[1]{%
-  \immediate\write18{texcount -1 -sum -merge -char -q #1.tex output.bbl > #1-chars.sum }%
-  \input{#1-chars.sum} characters (not including spaces)%
-}
-
 
 % Count tables in wordcount
 
@@ -81,11 +70,18 @@
 
 \newpage
 
-Test text
+\include{sections/3_intro}
 
-\include{tables/model_overview}
 
-Test text
+\include{sections/5_results}
+
+
+\section{References}
+\bibliographystyle{naturemag}
+%\bibliographystyle{plainnat}
+%\bibliographystyle{unsrt}
+%\bibliographystyle{unsrtnat}
+\bibliography{references}
 
 % Word counts - Don't count these!
 %TC:ignore
