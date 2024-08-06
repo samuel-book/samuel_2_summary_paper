@@ -59,6 +59,10 @@ We used the first k-fold train/test set split (4:1 train:test data) to investiga
 \label{fig:scatter_all}
 \end{figure}
 
+\subsection{Patient characteristics that contribute to a mismatch between actual thrombolysis use and predicted best outcome}
+
+We compared the distribution of feature values for two patient cohorts: i) patients that received thrombolysis but were predicted to not have a better outcome with thrombolysis, ii) patients that did not receive thrombolysis but were predicted to have a better outcome with thrombolysis. When examining individual feature values in this way we did not identify any features that could be used in isolation to identify those patients who would benefit from thrombolysis but did not receive thrombolysis (or vice versa). Patients who received thrombolysis but would likely not benefit from it have a range of feature values for each patient feature, as do those patients who did not receive thrombolysis but would benefit from it.
+
 \subsection{Hospital trade-off between maximising benefit from thrombolysis and minimising risk of harm from thrombolysis}
 
 The XGBoost \textit{thrombolysis decision} model had an accuracy of 78.7\% and ROC-AUC of 0.86. Figure \ref{fig:hosp_shap_scatter} shows the trade-off between the individuals hospital \textit{sensitivity} and \textit{specificity} towards giving treatment. We found that those hospitals attaining a higher predicted \textit{sensitivity} of treatment (not missing patients who would benefit from treatment) also tended to have a lower \textit{specificity} (giving thrombolysis to patients who would likely not benefit from it).
@@ -67,10 +71,11 @@ The XGBoost \textit{thrombolysis decision} model had an accuracy of 78.7\% and R
 
 \begin{figure}
     \centering
-    {\includegraphics[width=0.75\linewidth]{./images/p4_spec_sens}} 
+    {\includegraphics[width=0.65\linewidth]{./images/p4_spec_sens}} 
     \caption{\textit{Sensitivity} (proportion of patients who were predicted to benefit from thrombolysis who were predicted to receive thrombolysis) and \textit{specificity} (proportion of patients who were predicted \textit{not} to benefit from thrombolysis who were predicted \textit{not} to receive thrombolysis) for each stroke team. The dotted line shows the hospitals on the Pareto front where there are no hospitals that have a better \textit{sensitivity} without a worse \textit{specificity}, or vice-versa }
     \label{fig:hosp_shap_scatter}
 \end{figure}
+
 
 \subsection{Conclusions}
 
