@@ -82,6 +82,21 @@
 %\bibliographystyle{unsrtnat}
 \bibliography{references}
 
+% Number for supplementary material
+\newcommand{\beginsupplement}{
+    \setcounter{section}{0}
+    \renewcommand{\thesection}{S\arabic{section}}
+    \setcounter{figure}{0}
+    \renewcommand{\thefigure}{S\arabic{figure}}
+    \setcounter{table}{0}
+    \renewcommand{\thetable}{S\arabic{table}}
+}
+\beginsupplement
+
+%TC:igno
+\include{sections/50_supplement}
+%TC:endignore
+
 % Word counts - Don't count these!
 %TC:ignore
 %\section{Word counts}
