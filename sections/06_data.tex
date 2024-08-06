@@ -1,0 +1,39 @@
+\subsection{Data}
+
+\subsection{Data for modelling}
+
+Data extracted from the national stroke registry for England, Wales and Northern Ireland, the Sentinel Stroke National Audit Programme (SSNAP) for all patients with out-of-hospital stroke for the full calendar years of 2016-2021. The registry contains all consecutive patients admitted to 100\% of acutely-admitting hospitals with a case ascertainment of over 90\% when compared to administrative data (Hospital Episode Statistics). The total number of patients was 360,381, of whom 38.5\% arrived within 4 hours of known stroke onset. Of those arriving within 4 hours of known stroke onset 90.4\% arrived by ambulance (71.6\% of those not arriving within 4 hours of known stroke onset arrived by ambulance).
+
+The following data fields from SSNAP were used in the modelling:
+
+\begin{itemize}
+
+    \item \textit{Stroke team}: Stroke team attended (hospital identifier).
+
+    \item \textit{Age}: As midpoint of 5 year age bands.
+
+    \item \textit{Sex}: Sex of patient (male/female)
+
+    \item \textit{Diagnosis of atrial fibrillation}: Did the patient have a diagnosis of atrial fibrillation, either made prior to admission, or during admission?
+
+    \item \textit{Use of anticoagulants}: Use of prior anticoagulant for atrial fibrillation.
+
+    \item \textit{Onset known}: Whether onset was known, and if known whether it was considered to be known precisely or was a best estimate.
+
+    \item \textit{Onset during sleep}: Did stroke occur in sleep? (1 = Yes, 0 = No).
+
+    \item \textit{Onset-to-arrival time}: Time from onset of stroke to arrival at hospital (minutes), when known.
+
+    \item \textit{Prior disability level}: Estimated modified Rankin Scale, mRS, prior to stroke.
+
+    \item \textit{Stroke type}: Infarction/haemorrhage.
+
+    \item \textit{Stroke severity}: National Institutes of Health Stroke Scale (NIHSS) score on arrival.
+
+    \item \textit{Arrival-to-scan time}: Time from arrival at hospital to scan (minutes), when known.
+
+    \item \textit{Scan-to-thrombolysis time}: Time from arrival at hospital to scan to treatment with thrombolysis  (minutes), when given.
+
+    \item \textit{Disability on discharge}: mRS (0-6) on discharge, includes death (mRS 6) during admission.
+    
+\end{itemize}
