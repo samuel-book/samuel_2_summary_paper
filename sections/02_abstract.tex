@@ -9,17 +9,23 @@ Use of thrombolysis to treat emergency stroke patients varies considerably betwe
 
 \begin{itemize}
 
+    \item Generate empirically and theoretically informed knowledge about how thrombolysis is currently delivered, centred on physicians’ views, understandings, and practices.
+    
+    \item Learn how stroke physicians’ and staff think and feel about the use of machine learning based on SSNAP in improving clinical practice, and identify barriers for it's use.
+
     \item Understand how patient characteristics affect decisions to use, or not use, thrombolysis at each hospital.
 
     \item Predict expected outcomes for patients, with and without thrombolysis, and investigate whether hospitals with higher use of thrombolysis are likely to be generating more patient benefit. 
     
-    \item Predict how thrombolysis affects Quality of Life Years (QALYs).
-
     \item Model patient flow (including ambulance response times) and predict how process changes would affect thrombolysis use and benefit.
 
-    \item Generation of a web-based dashboard to allow clinicians to interrogate modelling.
+    \item Predict how thrombolysis affects quality-adjusted life years (QALYs).
 
-    \item Co-production of project outputs with clinicians to promote acceptance and use for local quality improvement, and investigate how well organisation factors predict thrombolysis use, to identify whether aspects of the organisation impacts the decision to treat.
+    \item Investigate how well organisation factors predict thrombolysis use, to identify whether aspects of the organisation impacts the decision to treat.
+    
+    \item Co-production of project outputs with clinicians to promote acceptance and use for local quality improvement.
+
+    \item Generation of a web-based dashboard to allow clinicians to interrogate modelling.
 
 \end{itemize}
 
@@ -29,9 +35,9 @@ Use of thrombolysis to treat emergency stroke patients varies considerably betwe
 
     \item Co-production and qualitative research used observation, semi-structured interviews, and review of NHS documents.
 
-    \item Patient flow through the emergency stroke pathway was modelled with Monte-Carlo simulation, and a mathematical model of outcome based on  clinical trial results.
-
     \item  Thrombolysis decisions and outcomes (with and without thrombolysis) were predicted using XGBoost machine learning, with Shapley values  generated to show the contribution of individual features to the prediction.
+
+    \item Patient flow through the emergency stroke pathway was modelled with Monte-Carlo simulation, and a mathematical model of outcome based on  clinical trial results.
     
 \end{itemize}
 
@@ -41,29 +47,34 @@ Use of thrombolysis to treat emergency stroke patients varies considerably betwe
 
     \item Qualitative research showed that participants were hopeful the SAMueL-technology could address variance in thrombolysis practice. It was seen as particularly suitable for less experienced clinicians and offered value for training, reviewing clinical cases, and quality improvement. It is important to reassure intended adopters about the integrity of modelling based on this data. Evidence indicated that emergency department physicians may have less confidence in the evidence base for thrombolysis.
     
-    \item Machine learning demonstrated that thrombolysis was having at least the expected clinical benefit as predicted by the clinical trials. On average, it was predicted that thrombolysis adds 0.26 QALY for each person treated. Stroke teams with higher thrombolysis use are predicted to be generating better patient outcomes.
-    
     \item Factors that most affect thrombolysis use in ischaemic stroke are arrival-to-scan time, stroke severity, prior disability, and hospital attended. After adjusting for other patients features, the odds of receiving thrombolysis varied 13-fold between hospitals.
+
+    \item Factors that most affect outcome after stroke are pre-stroke disability, stroke severity, age and use/time of thrombolysis.
     
-    \item Factors  that most affect outcome after stroke are pre-stroke disability, stroke severity, age and use/time of thrombolysis.
-    
+    \item Machine learning demonstrated that thrombolysis was having at least the expected clinical benefit as predicted by the clinical trials. On average, it was predicted that thrombolysis adds 0.26 QALY for each person treated. Stroke teams with higher thrombolysis use are predicted to be generating better patient outcomes.
+
     \item By combining changes to processes and decision-making there is potential to increase thrombolysis use from 13\% to 20\% in patients arriving by ambulance. Improving pathway speed has a greater effect on outcomes than on thrombolysis use. A web tool allows interrogation at the level of stroke team.
 \end{itemize}
 
-
 \textbf{Conclusions}
 
-Using observational data and machine learning, thrombolysis was found to have at least as much benefit as predicted by the clinical trial meta-analysis. Variation in decision-making concerning thrombolysis is leading to significant between-hospital variation in thrombolysis use, and is leading to variation in outcomes. Stroke teams with higher thrombolysis use are predicted to be generating better patient outcomes. 
+Using observational data and machine learning, thrombolysis was found to have at least as much benefit as predicted by the clinical trial meta-analysis. Variation in decision-making concerning thrombolysis is leading to significant between-hospital variation in thrombolysis use, and is leading to variation in outcomes. There was an apparent trade-off in decision-making between
+hospitals. Those hospitals who gave thrombolysis to more patients who would benefit from it (higher sensitivity) were
+also more likely to give thrombolysis to more patients who would not benefit from it (lower specificity). This represents
+a trade-off between ‘Miss no benefit’ and ‘Do no harm’. Maximising benefit while minimising harm is likely to require
+more sophisticated guidance on use of thrombolysis, such as that indicated by our model.
+25
+Stroke teams with higher thrombolysis use are predicted to be generating better patient outcomes. 
 
 \section*{Plain Language Summary}
 \addcontentsline{toc}{section}{Plain Language Summary}
 
-\textbf{What is the problem?} Use of clot-busting treatment in stroke varies a great deal between hospitals.
+\textbf{What is the problem?} Use of clot-busting treatment (`\textit{thrombolysis}') in stroke varies a great deal between hospitals.
 
-\textbf{What did we know?} We knew that the largest cause of this variation was differences between hospitals in which patients they choose to give  clot-busting treatment to. Some doctors are worried that the risk from this treatment can often outweigh the benefits, and worry that use of this treatment in the real world won’t have the same benefit that the clinical trials predicted it would have.
+\textbf{What did we know?} We knew that the largest cause of this variation was in how patients decide which patients are suitable for thrombolysis. Some doctors are worried that the risk from this treatment can outweigh the benefits, and that use of this treatment in the real world won’t have the same benefit that was predicted by the clinical trials.
 
-\textbf{What did we not know?} We did not know how the variation in use of clot-busting treatment was affecting outcomes. We didn’t know what it was about the patients that doctors considered when making decisions, and we didn’t know what most affected patient outcome. We didn’t know what doctors would think of using ‘Artificial Intelligence’ to help understand answers to these questions.
+\textbf{What did we not know?} We did not know 1) how the variation in use of thrombolysis was affecting patient outcomes, 2) what it was about the patients that doctors considered when making decisions, 3) what most affected patient outcome, 4) what doctors would think of using artificial intelligence (`AI') to help understand answers to these questions.
 
-\textbf{What did we do?} We used ‘Artificial Intelligence’ to learn which patients different hospitals would give lot-busting treatment to, and to learn which patients would likely have a better outcome if this treatment was used.
+\textbf{What did we do?} We used artificial intelligence to learn which patients different hospitals would give thrombolysis to, and to learn which patients would likely have a better outcome if this treatment was used.
 
-\textbf{What did we find out?} We found out that clot-busting treatment was at least as effective in real use as the clinical trials predicted, and hospitals choosing to use it more are very likely saving more lives and reducing disability from stroke. We now understand what doctors look at when deciding to use it or not, and what affects patient outcomes. We  found out speeding up giving this treatment would improve the number of people who could receive it, and would mean everyone receiving it would benefit more from it. We found that doctors were interested in our work, but they need to be convinced our ‘Artificial Intelligence’ is right, but we are hopeful that our results will give doctors more confidence to use this treatment more often, and to always give it as fast as possible.
+\textbf{What did we find out?} We found out that thrombolysis was at least as effective in real use as clinical trials predicted, and that hospitals choosing to use it more are very likely saving more lives and reducing disability from stroke. We now understand what doctors look at when deciding to use it or not, and what affects patient outcomes. We  found that speeding up giving this treatment would improve the number of people who would receive it, and would mean everyone receiving it would benefit more from it. We found that doctors were interested in our work, but they need to be convinced our ‘Artificial Intelligence’ is right, We are hopeful that our results will give doctors greater confidence to use this treatment more often, and to always give it as fast as possible.
