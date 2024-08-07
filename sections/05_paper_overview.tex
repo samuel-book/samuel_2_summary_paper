@@ -1,162 +1,96 @@
-\begin{landscape}
+\section{Overview of project papers}
+\label{sec:papers}
 
-\section{Overview of associated papers}
+\subsection{Paper 1: Stroke physicians' and staff perspectives on machine learning to optimise thrombolysis decision making in stroke: a qualitative study. \cite{jarvie_stroke_2024}}
 
-Table \ref{tab:papers} provides an overview of five papers that describe the detailed work of this project.
+\textbf{Study type and population}
 
+Qualitative study: 184 hours of focussed observation in three NHS Trusts in England. Observation of Integrated Stroke Delivery Networks (ISDNs) and other organisations with a strategic overview of stroke services. 20 participants from the three observation sites and five key informants from other sites took part in semi-structured interviews.
 
-\RaggedRight
-\small
-\renewcommand{\arraystretch}{1.2}
-\begin{longtable}{p{5cm}|p{5cm}|p{10cm}|p{5cm}}
-\caption{Summary of five SAMueL-2 papers}\label{tab:papers}\\
-%\toprule
-Paper & Study type and population & Key findings & Notes/resources\tabularnewline
-\midrule
-\endhead
+\textbf{Key findings}
 
-%%%%%%%%%%%%%%%%%%%%  Paper 1: Qualitative
-Stroke physicians' and staff perspectives on machine learning to optimise thrombolysis decision making in stroke: a qualitative study. \cite{jarvie_stroke_2024} &
+\begin{itemize}
+    \item Participants were hopeful the SAMueL-2 technology could address variance in thrombolysis practice. It was seen as particularly suitable for junior clinicians, non-stroke specialists and at district general hospitals and offered value for training, reviewing clinical cases, and quality improvement.
 
-Qualitative study: 184 hours of focussed observation in three NHS Trusts in England. Observation of Integrated Stroke Delivery Networks (ISDNs) and other organisations with strategic overview of stroke services. 20 participants from the three observation sites and five key informants from other sites took part in semi-structured interviews.&
+    \item Given reservations expressed about the underpinning SSNAP data, it is important to reassure intended adopters about the integrity of modelling based on this data.
 
-* Participants were hopeful the SAMueL-2 technology could address variance in thrombolysis practice. It was seen as particularly suitable for junior clinicians, non-stroke specialists and at district general hospitals and offered value for training, reviewing clinical cases, and quality improvement.
+    \item Evidence indicated that emergency department physicians may have less confidence in the evidence base for thrombolysis.
 
-\vspace{2mm}
+    \item Perceived lack of funding and stroke workforce shortages may impede quality improvement and adoption of new technologies such as SAMueL-2
 
-* It is important to reassure intended adopters about the integrity of modelling based on this data.
+\end{itemize}
 
-\vspace{2mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-* Evidence indicated ED physicians may have less confidence in the evidence base for thrombolysis.
+\subsection{Paper 2: What would other emergency stroke teams do? Using explainable machine learning to understand variation in thrombolysis practice.\cite{pearn_what_2023}}
 
-\vspace{2mm}
+\textbf{Study type and population}
 
-* Perceived lack of funding and stroke workforce shortages may impede quality improvement and adoption of new technologies such as SAMueL-2.
-& \tabularnewline
+Explainable machine learning model to study decision-to-treat with thrombolysis across 132 stroke teams. The model was based on 3 years of all emergency stroke arrivals to hospitals in England and Wales, arriving within 4 hours of stroke onset (88,928 patients).
 
-\midrule
-%%%%%%%%%%%%%%%%%%%%%%%% % Paper 2
-What Would Other Emergency Stroke Teams Do? Using Explainable Machine Learning to Understand Variation in Thrombolysis Practice.\cite{pearn_what_2023}&
+\textbf{Key findings}
 
-Explainable machine learning model to study decision-to-treat with thrombolysis across 132 stroke teams.  
+\begin{enumerate}
+    \item Thrombolysis use in patients arriving within 4 hours of known or estimated stroke onset ranged 7\% to 49\% between hospitals.
 
-\vspace{2mm}
+    \item The odds of receiving thrombolysis reduced 9-fold over the first 120 minutes of arrival-to-scan time, varied 30-fold with stroke severity, reduced 3-fold with estimated rather than precise stroke onset time, reduced 6-fold with increasing pre-stroke disability, reduced 4-fold with onset during sleep, reduced 5-fold with use of anticoagulants, reduced 2-fold between 80 and 110 years of age, reduced 3-fold between 120 and 240 min of onset-to-arrival time and varied 13-fold between hospitals.
+    
+    \item The majority of between-hospital variance was explained by the hospital, rather than by the differences in local patient populations.
+\end{enumerate}
 
-Model based on 3 years of all emergency stroke arrivals to hospitals in England and Wales, arriving within 4 hours of stroke onset (88,928 patients). & 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Paper 3: Thrombolysis: Are the results from the clinical trial meta-analysis seen in real life outcomes?  A machine learning study of the UK stroke registry.\cite{pearn_are_2024}}
 
-* Thrombolysis use in patients arriving within 4 h of known or estimated stroke onset ranged 7\% -49\% between hospitals. 
+\textbf{Study type and population}
 
-\vspace{2mm}
+Explainable machine learning model to investigate clinical benefit of thrombolysis (in those patients who received thrombolysis), compared with clinical trials. The model was based on 6 years of emergency ischaemic stroke admissions that arrived at an acute stroke team in England and Wales by ambulance after their stroke onset, which did not go on to receive thrombectomy (168,347 patients). Includes 118 acute stroke hospitals (each with at least 250 stroke admissions and at least 10 thrombolysis procedures in the study period).
 
-* The odds of receiving thrombolysis reduced 9-fold over the first 120 min of arrival-to-scan time, varied 30- fold with stroke severity, reduced 3-fold with estimated rather than precise stroke onset time, fell 6-fold with increasing pre-stroke disability, fell 4-fold with onset during sleep, fell 5-fold with use of anticoagulants, fell 2-fold between 80 and 110 years of age, reduced 3-fold between 120 and 240 min of onset-to-arrival time and varied 13-fold between hospitals. 
+\textbf{Key findings}
 
-\vspace{2mm}
+\begin{itemize}
+    \item Thrombolysis was found to be associated with a statistically significant improvement in the odds of having a good outcome using any mRS threshold. Regression analysis predicted a maximum 2.5-fold improvement in odds of achieving mRS 0-1, with a decline to no treatment effect at 5 hours 28 minutes post-onset. The observed beneficial effect is very similar to Emberson’s meta-analysis of a maximum 2.0-fold improvement in odds of achieving mRS 0-1, with a decline to no treatment effect at 6 hours 88 minutes post-onset.
+    
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-* The majority of between-hospital variance was explained by the hospital, rather than the differences in local patient populations. & 
+\subsection{Paper 4: Are the patients who would benefit from thrombolysis the same ones as those receiving it? A machine learning study of the UK stroke registry.\cite{pearn_are_2024}}
 
-GitHub pages book:
+\textbf{Study type and population}
 
-\url{https://samuel-book.github.io/samuel_shap_paper_1/}
+Explainable machine learning model to investigate thrombolysis decision making (at stroke unit level) and clinical benefit of thrombolysis. The model was based on 6 years of emergency ischaemic stroke admissions that arrived at an acute stroke team in England and Wales by ambulance after their stroke onset, had their scan within 255 minutes of stroke onset, and were not receiving anticoagulants for atrial fibrillation (78,396 patients). Includes 111 acute stroke hospitals (each with at least 250 stroke admissions and at least 10 thrombolysis procedures in the study period).&
 
-\vspace{2mm}
+\textbf{Key findings}
 
-GitHub code and full results:
+\begin{itemize}
+    \item 44\% of the study population received thrombolysis 60\% of the study population were predicted to benefit from thrombolysis (improved probability-weighted mRS and reduced probability of mRS 5-6).
+    
+    \item 73\% of those treated were predicted to have a better outcome with thrombolysis, and 49\% of those not treated were predicted to have a better outcome with thrombolysis.
+    
+    \item Patients with mismatched treatment decisions (actual thrombolysis use vs. predicted to benefit) can not be identified from an isolated feature value. 
+    \item Individual hospitals vary in balancing maximising benefit from thrombolysis vs. avoiding any possible harm.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\url{https://github.com/samuel-book/samuel_shap_paper_1}
+\subsection{Paper 5: Identifying levers for improving thrombolysis use and outcomes – combining clinical pathway simulation and machine learning applied to the UK stroke registry.\cite{pearn_identifying_2024}}
 
-\tabularnewline
+\textbf{Study type and population}
 
-\midrule
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paper 3
-Thrombolysis: Are the results from the clinical trial meta-analysis seen in real life outcomes?  A machine learning study of the UK stroke registry.\cite{pearn_are_2024} &
+Clinical pathway simulation, mathematical outcome modelling, and machine learning to investigate thrombolysis decision making and outcomes after stroke. The model was based on 5 years of all emergency stroke arrivals, by ambulance, to hospitals in England and Wales (302,715 patients).
 
-Explainable machine learning model to investigate clinical benefit of thrombolysis (in those patients who received thrombolysis), compared with clinical trials.
+\textbf{Key findings}
 
-\vspace{2mm}
+\begin{itemize}
+    \item Combining potential changes (improving arrival-to-thrombolysis times to 30 mins, reducing ambulance call-to-hospital-arrival times by 15 minutes, having all teams attain the current upper-quartile performance in determining stroke onset time, and applying decision making similar to high thrombolysing units) would be expected to increase thrombolysis use in patients arriving by ambulance from 13\% to 20\% and double the clinical benefit (additional patients discharged mRS 0-1) from thrombolysis.
+    
+    \item The largest single factor in improving both thrombolysis use and outcomes is differences in clinical decision-making. Stroke teams vary in clinical decision-making especially in subgroups of patients with features that make them non-ideal candidates for thrombolysis: mild stroke, pre-existing disability, and imprecisely known stroke onset times.
+    
+    \item High thrombolysing units are predicted to be generating more net benefit (including better avoidance of mortality and severe disability) than low thrombolylsing units.
 
-Model based on 6 years of all emergency ischaemic stroke arrivals to hospitals in England and Wales (168,347 patients).& 
+    \item Improving speed and consistency of the emergency stroke pathway would improve thrombolysis use somewhat, but speed improvements would have a larger effect on patient benefit.
+    
+    \item A health economics model, using the output from the outcome prediction model, estimated that thrombolysis produces an additional 0.26 QALY for each person treated.
 
-* Thrombolysis was found to be associated with a statistically significant improvement in the odds of having a good outcome using any mRS threshold. Regression analysis predicted a maximum 2.5-fold improvement in odds of achieving mRS 0-1, with a decline to no treatment effect at 5 hours 28 minutes post-onset.
+\end{itemize}
 
-\vspace{2mm}
-
-* The observed beneficial effect is very similar to Emberson’s meta-analysis of a maximum 2.0-fold improvement in odds of achieving mRS 0-1, with a decline to no treatment effect at 6 hours 88 minutes post-onset \cite{emberson_effect_2014}. & 
-
-GitHub code and full results: 
-
-\url{https://github.com/samuel-book/thrombolysis_clinical_trials_ml_paper}
-\tabularnewline
-
-\midrule
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paper 4
-Are the patients who would benefit from thrombolysis the same ones as those receiving it? A machine learning study of the UK stroke registry.\cite{pearn_are_2024} &
-
-Explainable machine learning model to investigate thrombolysis decision making (at stroke unit level) and clinical benefit of thrombolysis.
-
-\vspace{2mm}
-
-Model based on 6 years of emergency ischaemic stroke admissions that that arrived at an acute stroke team in England and Wales by ambulance after their stroke onset,  had their scan within 255 minutes of stroke onset, and were not receiving anticoagulants for atrial fibrillation ( 91,464 patients).&
-
-* 45\% of the study population received thrombolysis.
-
-\vspace{2mm}
-
-* 60\% of the study population were predicted to have a better outcome with thrombolysis (improved probability-weighted mRS and reduced probability of mRS 5-6).
-
-\vspace{2mm}
-
-* 73\% of those treated were predicted to have a better outcome with thrombolysis, and 49\% of those not treated were predicted to have a better outcome with thrombolysis. 
-
-\vspace{2mm}
-
-* Patients with mismatched treatment decisions (actual thrombolysis use vs. predicted to benefit) can not be identified from an isolated feature value. Individual hospitals vary in balancing maximising benefit from thrombolysis vs. avoiding any possible harm.&
-
-GitHub code and full results:
-
-\url{https://github.com/samuel-book/stroke_outcome}
-\tabularnewline
-
-\midrule
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%Paper 5
-Identifying levers for improving thrombolysis use and outcomes – combining clinical pathway simulation and machine learning applied to the UK stroke registry.\cite{pearn_identifying_2024}&
-
-Clinical pathway simulation, mathematical outcome modelling, and machine learning to investigate thrombolysis decision making and outcomes after stroke.
-
-\vspace{2mm}
-
-Model based on 5 years of all emergency stroke arrivals, by ambulance, to hospitals in England and Wales (302,715 patients).& 
-
-* Combining potential changes (improving arrival-to-thrombolysis times to 30 mins, reducing ambulance call-to-hospital-arrival times by 15 minutes, having all teams attain the current upper-quartile performance in determining stroke onset time, and applying decision making similar to high thrombolysing units) would be expected to increase thrombolysis use in patients arriving by ambulance from 13\% to 20\% and double the clinical benefit (additional patients discharged mRS 0-1) from thrombolysis.
-
-
-\vspace{2mm}
- 
-* The largest single factor in improving both thrombolysis use and outcomes is differences in clinical decision-making.
-
-\vspace{2mm}
-
-* High thrombolysing units are predicted to be generating more net benefit (including better avoidance of mortality and severe disability) than low thrombolylsing units.
-
-
-\vspace{2mm}
-
-* A health economics model, using the output from the outcome prediction model, estimated that thrombolysis produces an additional 0.26 QALY for each person treated.&
-
-GitHub code with dummy data:
-
-\url{https://github.com/samuel-book/samuel_2_demo}
-
-\vspace{2mm}
-
-Web application:
-
-\url{https://stroke-predictions.streamlit.app/}
-
-
-\tabularnewline
-\bottomrule
-\end{longtable}
-\normalsize
-\end{landscape}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

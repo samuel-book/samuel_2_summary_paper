@@ -1,4 +1,4 @@
-\section{Paper 2: What Would Other Emergency Stroke Teams Do? Using Explainable Machine Learning to Understand Variation in Thrombolysis Practice.\cite{pearn_what_2023}}\label{sec:paper_2}
+\section{Paper 2: What would other emergency stroke teams do? Using explainable machine learning to understand variation in thrombolysis practice.\cite{pearn_what_2023}}\label{sec:paper_2}
 
 \subsection{Objective}
 
@@ -6,7 +6,7 @@ To understand, using explainable machine learning, between-hospital variation in
 
 \subsection{Methods overview}
 
-Machine learning (XGBoost\cite{chen_xgboost_2016}) was used to learn which patients would receive thrombolysis at each stroke team, was applied to 88,928 patients who arrived at 132 different stroke teams within 4 hours of stroke onset, from 2016 to 2018. Shapley (SHAP) values were calculated for each prediction, providing estimates of how patient features, and hospital identity, influence the odds of receiving thrombolysis \cite{lundberg_unified_2017}.
+Data describing the 88,928 emergency ischaemic stroke patients who arrived at 132 different stroke teams within 4 hours of stroke onset (from 2016 to 2018) were used to train a machine learning model (XGBoost\cite{chen_xgboost_2016}) to learn which patients would receive thrombolysis at each stroke team. Shapley (SHAP) values were calculated for each prediction, providing estimates of how patient features, and hospital identity, influence the odds of receiving thrombolysis \cite{lundberg_unified_2017}.
 
 Code, and full results, for the machine learning work may be found at 
  \url{https://samuel-book.github.io/samuel_shap_paper_1}
@@ -15,7 +15,7 @@ Code, and full results, for the machine learning work may be found at
 
 \subsection{Feature selection}
 
-The best model with 1, 2, 5, 10, 25 \& all 60 original features had ROC AUCs of 0.715, 0.792, 0.891, 0.919, 0.923 \& 0.922. We selected 10 features for all subsequent work, which were:
+The best model with 1, 2, 5, 10, 25 \& all 83 original features had ROC AUCs of 0.715, 0.792, 0.891, 0.919, 0.923 \& 0.922. We selected 10 features for all subsequent work, which were:
 
 \begin{itemize}
     \item \emph{Arrival-to-scan time}: Time from arrival at hospital to scan (minutes)
@@ -30,7 +30,7 @@ The best model with 1, 2, 5, 10, 25 \& all 60 original features had ROC AUCs of 
     \item \emph{Age}: Age (as midpoint of 5 year age bands)
 \end{itemize}
 
-Correlations between the 10 features were measured using coefficients of determination (r-squared). All r-squared were less than 0.05 except a) age and prior disability level (r-squared 0.146), and b) onset during sleep and precise onset time (r-squared 0.078).
+Correlations between the 10 features were measured using coefficients of determination (r-squared). All r-squared were less than 0.05 except (a) age and prior disability level (r-squared 0.146), and (b) onset during sleep and precise onset time (r-squared 0.078).
 
 \subsubsection{Model accuracy}
 
@@ -62,20 +62,9 @@ SHAP values are calculated as log-odds as these are additive; the final model pr
 
 \subsubsection{Global patterns of patient factors affecting use of thrombolysis}
 
-Global patterns of how feature values affect the odds of receiving thrombolysis are constructed by combining all individual patient prediction SHAP values for each feature.
+Global patterns of how feature values affect the odds of receiving thrombolysis are constructed by combining all individual patient prediction SHAP values for each feature. 
 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{images/p2_patient_shap.jpg}
-    \caption{Box plots showing the relationship between SHAP values and feature values. Box plots show inter-quartile range (box), median (mid-line in box), and range (whiskers). The plots are ordered in ranked feature importance (using the mean absolute SHAP value across all instances)}
-    \label{fig:global_shap}
-\end{figure}
-
-
-Figure \ref{fig:global_shap} shows the relationship between patient characteristics and the log odds of receiving thrombolysis.
-
-Key observations are (with SHAP influence converted from log-odds to odds):
+Figure \ref{fig:global_shap} shows the relationship between patient characteristics and the log odds of receiving thrombolysis. Key observations are (with SHAP influence converted from log-odds to odds):
 
 \begin{itemize}
     \item \emph{Stroke type}: The SHAP values for stroke type show that the model effectively eliminated any probability of receiving thrombolysis for non-ischaemic (haemorrhagic) stroke, with the odds of receiving thrombolysis falling by over 6,000 fold.
@@ -89,6 +78,13 @@ Key observations are (with SHAP influence converted from log-odds to odds):
     \item \emph{Onset during sleep}: The odds of receiving thrombolysis were about 4 fold lower for onset during sleep.
 \end{itemize}
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=1\linewidth]{images/p2_patient_shap.jpg}
+    \caption{Box plots showing the relationship between SHAP values and feature values. Box plots show inter-quartile range (box), median (mid-line in box), and range (whiskers). The plots are ordered in ranked feature importance (using the mean absolute SHAP value across all instances)}
+    \label{fig:global_shap}
+\end{figure}
+
 \subsubsection{How hospital attended affects the odds of receiving thrombolysis}
 
 Figure \ref{fig:hospital_shap} shows the distribution of SHAP values for hospital attended. The hospital SHAP value isolates the affect that attending any given hospital has on the odds of receiving thrombolysis. There was a 13 fold difference in odds of receiving thrombolysis between hospitals.
@@ -96,7 +92,7 @@ Figure \ref{fig:hospital_shap} shows the distribution of SHAP values for hospita
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{images/p2_hosp_shap.jpg}
-    \caption{Histogram showing the frequency of SHAP values for the hospital attended.)}
+    \caption{Histogram showing the frequency of SHAP values for the hospital attended.}
     \label{fig:hospital_shap}
 \end{figure}
 

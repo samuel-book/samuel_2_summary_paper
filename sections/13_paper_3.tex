@@ -30,7 +30,7 @@ Code and full results for feature selection may be found at \url{https://github.
 
 \subsubsection{Model accuracy}
 
-With 7 input features, overall accuracy ranged from 77.6\% to 89.7\% across the six models (standard deviation across the 5 k-folds ranged from 0.001 to 0.002). This represented between 95-98\% of the accuracy that is obtained with all the features as inputs. Receiver Operating Characteristic Area Under Curve (ROC-AUC) ranged from 0.852 to 0.893 (standard deviation across the 5 k-folds ranged from 0.001 to 0.002).
+With 7 input features, overall accuracy ranged from 77.6\% to 89.7\% across the six models (standard deviation across the 5 k-folds ranged from 0.001 to 0.002). This represented between 95-98\% of the accuracy that is obtained with all the features as inputs. Receiver Operating Characteristic Area Under Curve (ROC-AUC) ranged from 0.852 to 0.893 across the six models (standard deviation across the 5 k-folds ranged from 0.001 to 0.002).
 
 \subsubsection{Global SHAP patterns}
 
@@ -62,7 +62,7 @@ For each patient in the test set we extracted SHAP values for each feature with 
       \caption{The contribution from attending a specific hospital to predicting whether the patient will have a good outcome at discharge, for each of the mRS scores used to define a good outcome}
       \label{fig:global_shap_hosp}
     \end{subfigure}
-    \label{fig:global_shap}
+    \label{fig:global_shap_trio}
   \caption{The relationship between feature values SHAP values in predicting whether a patient will have a good outcome. Violin plots show the distribution of SHAP values across the patient population for each feature value, with the mid-line showing the median SHAP value.} 
 \end{sidewaysfigure}
 
@@ -71,7 +71,7 @@ For each patient in the test set we extracted SHAP values for each feature with 
 
 \subsubsection{The direct contribution of thrombolysis use to the shift in probability of a good outcome}
 
-We used the first k-fold train/test set split (4:1 train:test data) to investigate likely outcome from thrombolysis. For each patient patients in the test set that received thrombolysis (n = 41,382), we performed a counterfactual analysis, predicting outcome probabilities if the patient had not received thrombolysis. We calculated the effect of thrombolysis by taking the difference in SHAP Values, between treated and the predicted outcome if untreated, for the contribution of thrombolysis to achieving a good outcome.
+We used the first k-fold train/test set split (4:1 train:test data) to investigate likely outcome from thrombolysis. For each patient patients in the test set that received thrombolysis (n = 41,382), we performed a counterfactual analysis, predicting outcome probabilities if the patient had not received thrombolysis. We calculated the effect of thrombolysis by taking the difference in SHAP values, between treated and the predicted outcome if untreated, for the contribution of thrombolysis to achieving a good outcome.
 
 We modelled the decay in effect of thrombolysis by fitting a linear regression model to the benefit of thrombolysis (log odds shift in attaining a good outcome) with time from onset to treatment (excluding patients treated after 300 minutes). The model used the definition of mRS 0-1 as a good outcome to match the definition used in the meta analysis of clinical trials \cite{emberson_effect_2014}. The analysis was applied to three patient cohorts: 1. all ischaemic strokes, 2. severe strokes (NIHSS 11+), and 3. mild-moderate strokes (NIHSS 0-10). 
 

@@ -8,7 +8,7 @@
 
 
 % Packages
-\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage[a4paper, left=1.7cm, right=1.7cm, top=1.5cm, bottom=1.5cm]{geometry}
 \usepackage{authblk} % For author formatting
 \usepackage{caption} % For figure and table captions
 \usepackage{cclicenses} % For creative commons license
@@ -72,7 +72,9 @@
 \tableofcontents
 
 \newpage
+%TC:ignore
 \include{sections/02_abstract}
+%TC:endignore
 \include{sections/03_intro}
 \include{sections/04_study_pathway}
 \include{sections/06_data}
@@ -83,6 +85,7 @@
 \include{sections/14_paper_4}
 \include{sections/15_paper_5}
 \include{sections/21_discussion}
+\include{sections/23_other}
 
 
 
@@ -95,16 +98,17 @@
 % Number for supplementary material
 \newcommand{\beginsupplement}{
     \setcounter{section}{0}
-    \renewcommand{\thesection}{S\arabic{section}}
+    \renewcommand{\thesection}{A\arabic{section}}
     \setcounter{figure}{0}
-    \renewcommand{\thefigure}{S\arabic{figure}}
+    \renewcommand{\thefigure}{A\arabic{figure}}
     \setcounter{table}{0}
-    \renewcommand{\thetable}{S\arabic{table}}
+    \renewcommand{\thetable}{A\arabic{table}}
 }
 \beginsupplement
 
+
 %TC:igno
-%\include{sections/50_supplement}
+\include{sections/50_appendix}
 %TC:endignore
 
 % Word counts - Don't count these!
