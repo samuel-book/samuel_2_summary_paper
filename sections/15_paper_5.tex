@@ -2,7 +2,7 @@
 
 \subsection{Objective}
 
-By combining clinical pathway simulation and machine learning of thrombolysis decision-making and outcomes, we sought to better understand the source of variation in thrombolysis use and the effect on outcomes.
+By combining clinical pathway simulation and machine learning of thrombolysis decision-making and outcomes, we sought to better understand the source of variation in thrombolysis use and the effect on outcomes. We also sought to investigate the cost-effectiveness of thrombolysis in stroke teams with lower or higher thrombolysis use.
 
 \subsection{Methods overview}
 
@@ -12,11 +12,11 @@ This work combined four models:
 
 \begin{enumerate}
 
-    \item \textit{Thrombolysis decisions}: An XGBoost machine learning model \cite{chen_xgboost_2016} was used to learn which patients would receive thrombolysis at each stroke team. Stroke team SHAP values were used to identify 25 \textit{benchmark teams} most likely to use thrombolysis. For each patient a \textit{benchmark decision} was predicted, which was the majority vote of the expected decision for that patient at the 25 \textit{benchmark teams}.
+    \item \textit{Thrombolysis decision model}: An XGBoost machine learning model \cite{chen_xgboost_2016} was used to learn which patients would receive thrombolysis at each stroke team. Stroke team SHAP values were used to identify 25 \textit{benchmark teams} most likely to use thrombolysis. For each patient a \textit{benchmark decision} was predicted, which was the majority vote of the expected decision for that patient at the 25 \textit{benchmark teams}.
 
     \item \textit{Outcome model}: A XGBoost machine learning model was used to predict outcome (mRS probability distribution) for each patient.
 
-    \item \textit{Patient pathway flow}: Monte-Carlo simulation was used to model the flow of patients through the emergency stroke pathway at each hospital, taking into account both average speeds and variation. When examining the effect of improving patient flow, clinical outcome is predicted as the number of \textit{good outcomes} (mRS 0-1) per 1,000 admissions using a previously described mathematical model \cite{allen_estimation_2020}.
+    \item \textit{Patient pathway flow}: Monte-Carlo simulation was used to model the flow of patients through the emergency stroke pathway at each hospital, taking into account both average speeds and variation. When examining the effect of improving patient flow, clinical outcome is predicted as the number of \textit{excellent outcomes} (mRS 0-1) per 1,000 admissions using a previously described mathematical model \cite{allen_estimation_2020}.
 
     \item \textit{Lifetime economic model}: A model predicting life expectancy, quality-adjusted life years (QALYs), and NHS care costs after stroke, based on age, sex, and disability at discharge\cite{mcmeekin_lifetime_2024}.
     
@@ -45,7 +45,7 @@ To help compare decision-making and outcomes across stroke teams we exemplified 
 
 \subsubsection{Pathway changes}
 
-The combined modelling may be used to examine a range of possible changes to improve use of thrombolysis:
+The combined model may be used to examine a range of possible changes to improve use of thrombolysis:
 
 \begin{enumerate}
 
@@ -53,7 +53,7 @@ The combined modelling may be used to examine a range of possible changes to imp
 
     \item \textit{Speed}: Sets 95\% of patients having a scan within 4 hours of arrival, and all patients have 15 minutes arrival-to-scan time and 15 minutes scan-to-needle time.
 
-    \item \textit{Ambo}: Subtracts 15 minutes from the current ambulance call to arrival-at-hospital times.
+    \item \textit{Ambo}: Subtracts 15 minutes from the current ambulance-call to arrival-at-hospital times.
 
     \item  \textit{Onset-known}: Sets the proportion of patients with a known stroke onset time to the national upper quartile if currently less than the national upper quartile.
 
@@ -70,11 +70,11 @@ Code, with demonstration, is available at \url{https://github.com/samuel-book/sa
 
 \subsection{Model accuracy}
 
-Using an 80:20 train:test split, the thrombolysis decision model had an accuracy of 85\%, a balanced accuracy of 82\% (accuracy and balanced accuracy using a 50\% probability cut-off to classify a patient as a binary `likely to receive thrombolysis' or not), and a receiver operating characteristic area under curve of 0.92. The stroke outcome model had a receiver operating characteristic area under curve of 0.80.
+Using an 4:1 train:test split, the thrombolysis decision model had an accuracy of 85\%, a balanced accuracy of 82\% (accuracy and balanced accuracy using a 50\% probability cut-off to classify a patient as a binary `likely to receive thrombolysis' or not), and a receiver operating characteristic area under curve of 0.92. The stroke outcome model had a receiver operating characteristic area under curve of 0.80.
 
 \subsection{Benchmark stroke teams and benchmark decisions}
 
-\textit{Benchmark decisions} are those that would likely be taken by the majority 25 \textit{benchmark} stroke teams most likely to use thrombolysis (if all stroke teams saw the same patients). If all decisions-to-treat were made according to benchmark decisions, average thrombolysis across stroke teams would increase from 36\% to 45\% (in the modelled patient population). Thrombolysis use in the 25 stroke teams least likely to use thrombolysis would increase from 29\% to 46\%.
+\textit{Benchmark decisions} are those that would likely be taken by the majority 25 \textit{benchmark} stroke teams most likely to use thrombolysis (if all stroke teams saw the same patients). If all decisions-to-treat were made according to benchmark decisions, the average thrombolysis rate across stroke teams would increase from 36\% to 45\% (in the modelled patient population). Thrombolysis use in the 25 stroke teams least likely to use thrombolysis would increase from 29\% to 46\%.
 
 Figure \ref{fig:thrombolysis_rates_teams} compares observed and predicted thrombolysis use (based on historic performance, and applying \textit{benchmark decisions}). Predicted and observed thrombolysis use correlate very closely (r-squared 0.94). Predicted rates were, on average, slightly higher (1.7\%) than observed rates.
 
@@ -101,7 +101,7 @@ Table \ref{tab:prototype_outcomes} shows predicted outcomes across all prototype
 \begin{minipage}{1\textwidth}
 \small
 \begin{longtable}{p{5.2cm} | p{1.6cm} p{1.6cm} p{1.5cm} | p{1.6cm} p{1.6cm} p{1.5cm}}
-\caption{Predicted outcomes for patient prototypes. \textit{Ideal}: onset-to-arrival = 90 minutes; arrival-to-scan = 15 minutes; onset-to-thrombolysis = 120 minutes; stroke severity (NIHSS) = 15; pre-stroke disability (mRS) = 0; age = 72.5; precisely known onset; onset not during sleep; stroke type = infarction; patient has no atrial fibrillation and is not receiving anticoagulants for atrial fibrillation. \textit{Late arrival}: as \textit{Ideal} but onset-to-arrival = 225 minutes and onset-to-thrombolysis = 255 minutes; \textit{Mild}: As \textit{Ideal} but stroke severity = 3; \textit{Prior disability}: as \textit{Ideal} but pre-stroke disability = 3; \textit{Imprecise}: as \textit{ideal} but stroke onset time estimated. \textit{Age}: as \textit{Ideal} but age = 87.5. Results show probability-weighted disability at discharge, and the proportion of patients predicted to have a very poor outcome (mRS 5-6). With combinations of non-ideal characteristics.}\\
+\caption{Predicted outcomes for patient prototypes. \textit{Ideal}: onset-to-arrival = 90 minutes; arrival-to-scan = 15 minutes; onset-to-thrombolysis = 120 minutes; stroke severity (NIHSS) = 15; pre-stroke disability (mRS) = 0; age = 72.5; precisely known onset; onset not during sleep; stroke type = infarction; patient has no atrial fibrillation and is not receiving anticoagulants for atrial fibrillation. \textit{Late arrival}: as \textit{Ideal} but onset-to-arrival = 225 minutes and onset-to-thrombolysis = 255 minutes; \textit{Mild}: as \textit{Ideal} but stroke severity = 3; \textit{Prior disability}: as \textit{Ideal} but pre-stroke disability = 3; \textit{Imprecise}: as \textit{ideal} but stroke onset time estimated. \textit{Age}: as \textit{Ideal} but age = 87.5. Results also includes patients prototypes with combinations of these non-ideal characteristics. Results show probability-weighted disability at discharge, and the proportion of patients predicted to have a very poor outcome (mRS 5-6).}\\
 \label{tab:prototype_outcomes}
 Patient prototype & Untreated probability-weighted mRS & Treated probability-weighted mRS & Improve-ment & Untreated proportion mRS 5-6 & Treated proportion mRS 5-6 & Improve-ment\\
 \endhead
@@ -128,12 +128,12 @@ Mild + Prior disability + Imprecise & 3.01 & 2.65 & 0.36 & 0.06 & 0.06 & 0.00\\
 
 \subsubsection{Pathway improvement}
 
-Across the study population, by combining pathway improvements, thrombolysis use in all those emergency stroke admissions arriving by ambulance shows the potential to be increased from 13\% to 20\% (figure \ref{fig:scenarios_population}). Using a model based on clinical trial data, benefit, as measured by number of number of people discharged with no, or minimal, disability (mRS 0 or 1) could be doubled from 10 to 20 additional excellent outcomes per 1,000 admissions. The single most influential change was applying \textit{benchmark} decisions. Improving speed would not significantly increase the number of people given thrombolysis, but would lead to more benefit from thrombolysis (as all treated patients will have improved benefit).
+Across the study population, by combining pathway improvements, thrombolysis use in all those emergency stroke admissions arriving by ambulance shows the potential to be increased from 13\% to 20\% (figure \ref{fig:scenarios_population}). Using a model based on clinical trial data, benefit, as measured by number of number of people discharged with no, or minimal, disability (mRS 0 or 1) could be doubled from 10 to 20 additional excellent outcomes per 1,000 admissions. The single most influential change in improving thrombolysis use was applying \textit{benchmark} decisions (figure \ref{fig:scenarios_population}, left panel). Improving speed would not greatly increase the number of people given thrombolysis, but would lead to more benefit from thrombolysis as all treated patients will gain benefit from earlier treatment (figure \ref{fig:scenarios_population}, left panel).
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{images/p5_sim.jpg}
-    \caption{Expected effect of alternative process improvement initiatives across the study population. The chart shows the effect on thrombolysis use (left) and on number of additional good outcomes (mRS 0-1) per 1,000 admissions due to use of thrombolysis (right). \textit{Base}: Uses the hospitals’ recorded pathway statistics. \textit{Onset}: Sets the proportion of patients with a known stroke onset time to the national upper quartile if currently less than the national upper quartile. \textit{Speed}: Sets 95\% of patients having a scan within 4 hours of arrival, and all patients have 15 minutes arrival-to-scan time and 15 minutes scan-to-needle time. \textit{Ambo}: Subtracts 15 minutes from the current ambulance call to arrival-at-hospital times. \textit{Benchmark}: The benchmark thrombolysis rate takes the likelihood to give thrombolysis for patients scanned within 4 hours of onset from the majority vote of the 25 benchmark hospitals.}
+    \caption{Expected effect of alternative process improvement initiatives across the study population. The chart shows the effect on thrombolysis use (left) and on number of additional excellent outcomes (mRS 0-1) per 1,000 admissions due to use of thrombolysis (right). \textit{Base}: Uses the hospitals’ recorded pathway statistics. \textit{Onset}: Sets the proportion of patients with a known stroke onset time to the national upper quartile if currently less than the national upper quartile. \textit{Speed}: Sets 95\% of patients having a scan within 4 hours of arrival, and all patients have 15 minutes arrival-to-scan time and 15 minutes scan-to-needle time. \textit{Ambo}: Subtracts 15 minutes from the current ambulance call to arrival-at-hospital times. \textit{Benchmark}: The benchmark thrombolysis rate takes the likelihood to give thrombolysis for patients scanned within 4 hours of onset from the majority vote of the 25 benchmark hospitals.}
     \label{fig:scenarios_population}
 \end{figure}
 
@@ -189,4 +189,4 @@ Benchmark & 13.6\% & 31.7 & £81,914 & £61,117 & £1,927 & -£20,797\tabularnew
 
 \subsection{Conclusions}
 
-There is significant inter-hospital variation in use of thrombolysis that is caused by hospital processes and differences in decision-making. Improving processes and adopting the decision making of higher-thrombolysing units would be expected to improve both thrombolysis use and outcomes. Pathway analysis and machine learning should allow stroke teams to better understand, and improve, their own pathways.
+There is significant inter-hospital variation in use of thrombolysis that is caused by hospital processes and differences in decision-making. Improving processes and adopting the decision making of higher-thrombolysing units would be expected to increase thrombolysis use and has the potential to double the population benefit from thrombolysis. Higher-thrombolysing sites are delivering greater cost-effectiveness from thrombolysis through reductions in long-term disability in a greater number of patients.  Pathway analysis and machine learning should allow stroke teams to better understand, and improve, their own pathways.

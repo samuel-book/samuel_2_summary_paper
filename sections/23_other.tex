@@ -4,13 +4,13 @@
 
 Results have been regularly presented to a Patient and Carers Involvement (PCI) team. The PCI team has advised on both qualitative and quantitative research, and have helped shape communication of results.
 
-In particular, the PCI have always advocated that it is outcomes, rather than any particular thrombolysis use target, that matters most. They also highlighted that modified Rankin Scale is an incomplete view of patient outcome. This has led to the development of a new funded project, working with the Stroke Data Science Catalyst (a partnership between the Stroke Association, the British Heart Foundation, and Health Data Research UK). This new project is looking at longer term outcomes from stroke, in the first instance focusing on days spent in care or at usual place of residence in the first 12 months after stroke.
+In particular, the PCI have always advocated that it is outcomes, rather than any particular thrombolysis use target, that matters most. They also highlighted that modified Rankin Scale is an incomplete view of patient outcome, with particular omittance of a measure of patients' mental health or cognitive well-being. This has led to the development of a new funded project, working with the Stroke Data Science Catalyst (a partnership between the Stroke Association, the British Heart Foundation, and Health Data Research UK). This new project is looking at longer term outcomes from stroke, in the first instance focusing on days spent in care or at usual place of residence in the first 12 months after stroke.
 
 The PCI team have also suggested, and will help with, further outputs from the SAMueL project. This will include short videos (e.g. for YouTube) and articles for relevant publications such as the Stroke Association's \textit{Stroke News} magazine.
 
 \section{Equality, Diversity and Inclusion (EDI)}
 
-Though EDI was not a focus of this particular project's objectives, to build substantial EDI into future work, we have performed the ground work required to link analysis of stroke treatment and outcomes to population demographics for each stroke team. We have combined data from multiple sources (at Lower Super Output Area) and collated according to stroke unit catchment areas (estimated by assigning each LSOA to the stroke team with the shortest travel time), and other areas such as Integrated Stroke Delivery Networks, and ambulance trust.
+Although EDI was not a focus of this particular project's objectives, to build substantial EDI into future work, we have performed the ground work required to link analysis of stroke treatment and outcomes to population demographics for each stroke team. We have combined data from multiple sources (at Lower Super Output Area, LSOA) and collated according to stroke unit catchment areas (estimated by assigning each LSOA to the stroke team with the shortest travel time), and other areas such as Integrated Stroke Delivery Networks, and ambulance trust.
 
 Data (source data and combined data) and code for this is available at: \url{https://github.com/samuel-book/stroke_unit_demographics}. Analysis is also made available by a web application at: \url{https://stroke-unit-demographics.streamlit.app/Interactive_demo}.
 
@@ -47,7 +47,9 @@ Ailsa Brotherton, Executive Director of Improvement, Research and Innovation, Im
 
 \subsection{Thrombolysis in Acute Stroke Collaborative (TASC)}
 
-The SAMueL team has been providing bespoke reports to the \textit{Thrombolysis in Acute Stroke Collaborative} (TASC). TASC is an NHS-England sponsored and funded project working with NHS Elect. TASC is taking 6 low thrombolysing stroke teams and is helping them improve thrombolysis use. A follow up project, focussing on 12-15 more teams has been agreed.
+The SAMueL team has been providing bespoke reports to the \textit{Thrombolysis in Acute Stroke Collaborative} (TASC). TASC is an NHS-England sponsored and funded project working with NHS Elect. TASC is taking 6 low thrombolysing stroke teams and is helping them improve thrombolysis use. A follow up project, focusing on 12-15 more teams has been agreed.
+
+SAMueL has highlighted how decision-making in thrombolysis is a significant source of variation in thrombolysis. This has been recognised by stroke teams in the TASC project, and teams are engaging with with this challenge, but teams are left to work on their own solutions. As an example, one team now meet monthly to review thrombolysis ‘grey’ cases and they have also embraced a buddy “phone a friend” culture whereby any of them can phone another colleague to discuss thrombolysis decisions in more borderline cases.
 
 \subsection{Conference presentations}
 
@@ -75,7 +77,7 @@ Recommendations for further research include:
 
     \item How does use, benefit from, and bed use after, thrombectomy vary between admitting stroke team?
 
-    \item Can causal inference methods (such as Directed Acyclic Graphs, propensity score adjustment, and target trial emulation) confirm the conclusions made in this project?
+    \item Can causal inference methods (such as directed acyclic graphs, propensity score adjustment, and target trial emulation) confirm the conclusions made in this project?
 
     \item How do we maximise uptake and impact of this work?
     
@@ -84,7 +86,7 @@ Recommendations for further research include:
 
 \section{Conclusions}
 
-Using observational data and machine learning, thrombolysis was found to have at least as much benefit as predicted by the clinical trial meta-analysis. Variation in decision-making concerning thrombolysis is leading to significant between-hospital variation in thrombolysis use, and is leading to variation in outcomes. Stroke teams with higher thrombolysis use are predicted to be generating better patient outcomes. Clinicians were hopeful the SAMueL technology could address variance in thrombolysis practice. It was seen as particularly suitable for junior clinicians, non-stroke specialists and at district general hospitals and offered value for training, reviewing clinical cases, and quality improvement.
+We combined qualitative research and large-scale observational data with machine learning on use of, and outcomes from, thrombolysis. Both qualitative research and machine learning revealed significant between-hospital variation in which patients receive thrombolysis. Machine learning revealed that who will benefit from thrombolysis is patient-specific, and not easily captured in a simple medicine use label, but we found overall that stroke teams with a higher willingness to use thrombolysis are predicted to be generating better patient outcomes at a population level.
 
 \section{Acknowledgements}
 

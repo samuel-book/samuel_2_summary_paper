@@ -1,82 +1,109 @@
-\section{Paper 4 highlights: Are the patients who would benefit from thrombolysis the same ones as those receiving it? A machine learning study of the UK stroke registry.\cite{pearn_are_2024}}\label{sec:paper_4}
+\section{Paper 4 highlights: Thrombolysis: Are the results from the clinical trial meta-analysis seen in real life outcomes?  A machine learning study of the UK stroke registry.\cite{pearn_thrombolysis_2024}}\label{sec:paper_4}
 
 \subsection{Objective}
 
-To investigate, using explainable machine learning, the overlap and differences between the groups of patients receiving thrombolysis, and the group of patients predicted to benefit from thrombolysis.
+To investigate, using explainable machine learning, the benefit of thrombolysis, and to compare the relationship between time-to-treatment and effectiveness with clinical trial results.
 
 \subsection{Methods overview}
 
-\subsubsection{Outcome prediction}
+Data for a total of 168,347 ischaemic stroke patients who attended one of 118 emergency stroke hospitals in England and Wales from 2016 to 2021 were extracted from the Sentinel Stroke National Audit Programme (SSNAP). We used explainable machine learning (XGBoost\cite{chen_xgboost_2016} with SHAP\cite{lundberg_unified_2017}) to examine the effect of patient characteristics, hospital attended, and use/time of thrombolysis on the odds of achieving a good outcome (being at or below any given modified Rankin Scale threshold). A linear regression model was fitted to the estimated effect of onset-to-treatment time on thrombolysis to permit comparison with clinical trial meta-analyses.
 
-Data for a total of 78,396 ischaemic stroke patients who attended one of 111 emergency stroke hospitals in England and Wales and had brain imaging within 255 minutes of stroke onset, from 2016 to 2021, were extracted from the Sentinel Stroke National Audit Programme (SSNAP). We used explainable machine learning (XGBoost\cite{chen_xgboost_2016} with SHAP\cite{lundberg_unified_2017}) to examine the effect of patient characteristics, hospital attended, and use/time of thrombolysis on the patients’ predicted outcome (modified Rankin Scale, mRS) at discharge. Patients on anticoagulants for atrial fibillation (representing 12.9\% of the population) were excluded from the study population as these patients may be at risk of adverse outcome that is not predicted by the machine learning model (as it is likely thrombolysis is only given to patients on anticoagulants when it is sure blood clotting is sufficient).
-
-The model predicts probability of each mRS category outcome.  \textit{Probability-weighted mRS} was used as a measure of the mid-point location of disability; it is the sum of each mRS outcome multiplied by the probability of that outcome occurring
-
-We predicted the expected effect of thrombolysis for all patients, and compared who would benefit from thrombolysis with those who actually received thrombolysis. We used a conservative definition to determine whether a patient would likely have a better outcome with treatment from the two probability distributions, where both of these criteria must be met: 
-
-\begin{enumerate}
-    \item A reduction in probability-weighted mRS.
-    \item A reduction in the likelihood of a very bad outcome (mRS 5-6, complete dependency or death).
-\end{enumerate}
-
-\subsubsection{Hospital trade-off between maximising benefit from thrombolysis and minimising risk of harm from thrombolysis}
-
-We trained a second XGBoost \textit{thrombolysis decision} model, to predict the likelihood of a patient receiving thrombolysis, using methods previously described \cite{pearn_what_2023}. We used this to predict likely thrombolysis use for all patients at all stroke teams. This was used to compare likely decision-making and outcomes across if all stroke teams saw the same patients. To compare maximising benefit from thrombolysis and avoiding potential harm from thrombolysis we defined measures for \textit{sensitivity} and \textit{specificity} of treatment. \textit{Sensitivity} was calculated as the proportion of patients who were predicted to benefit from thrombolysis (from the \textit{thrombolysis outcome} model) who were predicted to receive thrombolysis at each team (from the \textit{thrombolysis decision} model). \textit{Specificity} was calculated as the proportion of patients who were predicted not to benefit from thrombolysis (from the \textit{thrombolysis outcome} model) who were not predicted to receive thrombolysis at each team (from the \textit{thrombolysis decision} model). A low \textit{sensitivity} would indicate a higher likelihood of not treating people who would benefit from thrombolysis, and a low \textit{specificity} would indicate a higher likelihood of treating people who would not benefit from thrombolysis.
-
-Code, and full results, for the machine learning work may be found at \url{https://github.com/samuel-book/thrombolysis_outcome_ml_paper}.
+Code, and full results, for the machine learning work may be found at \url{https://github.com/samuel-book/thrombolysis_clinical_trials_ml_paper}
 
 \subsection{Key results}
 
+\subsubsection{Feature selection}
+
+Using the results from Pearn \textit{el at}. \cite{pearn_are_2024}, we selected seven features as inputs for the model to predict a patient's likelihood of a good outcome at discharge:
+
+\begin{enumerate}
+    \item Prior disability level: Estimated mRS score prior to stroke
+    \item Stroke severity: National Institutes of Health Stroke Scale (NIHSS) score on arrival
+    \item Stroke team: Stroke team attended (hospital identifier)
+    \item Age: Age (as midpoint of 5 year age bands)
+    \item Onset to thrombolysis time: Time from onset to receiving thrombolysis (minutes). This was set to 9999 if the patient did not receive thrombolysis.
+    \item Atrial fibrillation diagnosis: Patient had a diagnosis of atrial fibrillation, either on arrival or diagnosed during admission (1 = Yes, 0 = No)
+    \item Precise onset time known: Onset time recorded was recorded as being precise time, as opposed to a best estimate (1 = precise, 0 = best estimate)
+\end{enumerate}
+
+Code and full results for feature selection may be found at \url{https://github.com/samuel-book/feature_selection_thrombolysis_outcome_ml_paper}
+
 \subsubsection{Model accuracy}
 
-Receiver Operating Characteristic Area Under Curve (ROC-AUC) was 0.796 (0.001 standard deviation across the 5 k-folds). Classification accuracy across the seven mRS outcomes was 41.1\% (0.002 standard deviation across the 5 k-folds). Accuracy to within one mRS category was 72.4\% (0.002 standard deviation across the 5 k-folds).  
+With 7 input features, overall accuracy ranged from 77.6\% to 89.7\% across the six models (standard deviation across the 5 k-folds ranged from 0.001 to 0.002). This represented between 95-98\% of the accuracy that is obtained with all the features as inputs. Receiver Operating Characteristic Area Under Curve (ROC-AUC) ranged from 0.852 to 0.893 across the six models (standard deviation across the 5 k-folds ranged from 0.001 to 0.002).
 
-\subsection{Comparing actual use of thrombolysis and predicted benefit from thrombolysis}
+\subsubsection{Global SHAP patterns}
 
-We used the first k-fold train/test set split (4:1 train:test data) to investigate likely outcome from thrombolysis. In the test set of 15,680 patients, 44\% received thrombolysis. For each patient we predicted outcomes with and without thrombolysis. Figure \ref{fig:scatter_all} shows the expected shift in probability-weighted mRS at discharge, and the change in probability of being discharged with mRS 5-6, due to thrombolysis, separated by whether the patient actually received thrombolysis or not. Overall, 60\% of patients were predicted to benefit from thrombolysis. Of those who did receive thrombolysis, 73\% were predicted to have both a better average disability likelihood and a reduction in probability of being mRS 5-6. 9\% were predicted to have both a worse average disability likelihood and an increase in probability of being mRS 5-6. 18\% were predicted to have either, but not both, an improved average disability likelihood or a reduction in probability of being mRS 5-6. Of those who did not receive thrombolysis, 49\% were predicted to have both a better average disability likelihood and a reduction in probability of being mRS 5-6. 26\% were predicted to have both a worse average disability likelihood and an increase in probability of being mRS 5-6. 25\% were predicted to have either, but not both, an improved average disability likelihood or a reduction in probability of being mRS 5-6.
+SHAP values explain the contribution (as the change in log-odds) that each feature value has on the model’s prediction of achieving a good outcome at discharge \cite{lundberg_unified_2017}. SHAP values expressed as log-odds are additive (and so are preferred to probabilities, which are not additive, when examining the contribution of individual features to the final prediction). A SHAP model for each of the six machine learning models was created (one for each threshold of mRS to define a good outcome). To illustrate how to interpret the SHAP value in our case, the target feature with a value of 1 represents a good outcome (being at or below any given mRS threshold), and a value 0 represents a worse outcome (being above any given mRS threshold). A positive SHAP value represents that the corresponding feature value increases the likelihood for that patient having a good outcome, and a negative SHAP value represents that the corresponding feature value reduces the likelihood for that patient having a good outcome. SHAP values can be assessed \textit{locally} at patient level, and \textit{globally} at patient cohort level to understand general patterns of how discharge outcomes differ by each of the patient, pathway, and hospital characteristics.
 
-\begin{figure}
-\centering
-\begin{subfigure}{.7\textwidth}
-  \centering
-  \captionsetup{width=.9\linewidth}
-  \includegraphics[trim={0 0 0 1.7cm}, clip, width=1\linewidth]{./images/p4_scatter_treated}
-  \caption{\footnotesize{Patients who received thrombolysis}}
-  \label{fig:scatter_receive}
-\end{subfigure}
-
-\vspace{5mm}
+For each patient in the test set we extracted SHAP values for each feature with its corresponding feature value. Figure \ref{fig:global_shap_mrs1} shows the relationship between feature values and the odds of a patient having a good outcome (mRS 0-1) at discharge (a positive SHAP value contributes to an increased likelihood, and a negative SHAP value contributes to a reduced likelihood). We see that low prior disability, lower stroke severity, younger age, receiving thrombolysis (and receiving it sooner after onset), and having no diagnosis of atrial fibrillation contributed to a patient more likely having a good outcome at discharge. Figure \ref{fig:global_shap_ott} focusses on the feature \textit{onset to thrombolysis time}, and its effect at reaching any disability threshold. As time from onset to treatment increased, the beneficial effect of thrombolysis decayed. For thresholds up to, and including, mRS 3, the median effect of thrombolysis remained positive, compared to not receiving thrombolysis, up until the maximum time of 720 minutes. For thresholds of mRS 4 and upwards, the median effect of thrombolysis became negative at longer onset-to-treatment times. This was especially apparent in how thrombolysis changed the overall odds of survival (mRS 0-5) where the median effect of thrombolysis became negative from about 155 minutes. Later thrombolysis may therefore increase the proportion of patients attaining mRS 0-3, but at the cost of some reduction in overall survival. Earlier thrombolysis improved the odds of survival. Figure \ref{fig:global_shap_hosp} shows the contribution from attending a specific hospital to predicting whether the patient had a good outcome at discharge, for each of the mRS threshold levels used to define a good outcome. As the threshold for having a good outcome becomes more inclusive, the range of the effect of the hospital attended had a reduced contribution on the prediction.
 
 
-\begin{subfigure}{.7\textwidth}
-  \centering
-  \captionsetup{width=.9\linewidth}
-  \includegraphics[trim={0 0 0 1.7cm}, clip, width=1\linewidth]{./images/p4_scatter_treated}
-  \caption{\footnotesize{Patients who did not receive thrombolysis}}
-  \label{fig:scatter_not_receive}
-\end{subfigure}
-  \caption{The predicted benefit or disbenefit of thrombolysis for each of 15,680 patients. Benefit is shown as both the expected improvement in probability-weighted disability (y-axis) and the improvement in likelihood of avoiding discharge with mRS 5-6. Both measures are expressed so that a positive value is better (a reduction in probability-weighted disability or a reduction in probability of discharge with mRS 5-6). (a) Patients who did actually receive thrombolysis, (b) Patients who did not actually receive thrombolysis.}
-\label{fig:scatter_all}
-\end{figure}
-
-\subsection{Patient characteristics that contribute to a mismatch between actual thrombolysis use and predicted best outcome}
-
-We compared the distribution of feature values for two patient cohorts: i) patients that received thrombolysis but were predicted to not have a better outcome with thrombolysis, ii) patients that did not receive thrombolysis but were predicted to have a better outcome with thrombolysis. When examining individual feature values in this way we did not identify any features that could be used in isolation to identify those patients who would benefit from thrombolysis but did not receive thrombolysis (or vice versa). Patients who received thrombolysis but would likely not benefit from it have a range of feature values for each patient feature, as do those patients who did not receive thrombolysis but would benefit from it.
-
-\subsection{Hospital trade-off between maximising benefit from thrombolysis and minimising risk of harm from thrombolysis}
-
-The XGBoost \textit{thrombolysis decision} model had an accuracy of 78.7\% and ROC-AUC of 0.86. Figure \ref{fig:hosp_shap_scatter} shows the trade-off between the individuals hospital \textit{sensitivity} and \textit{specificity} towards giving treatment. We found that those hospitals attaining a higher predicted \textit{sensitivity} of treatment (not missing patients who would benefit from treatment) also tended to have a lower \textit{specificity} (giving thrombolysis to patients who would likely not benefit from it).
-
-%218_hosp_shap_scatter.png}}\\
-
-\begin{figure}
+\begin{sidewaysfigure}[!h]
     \centering
-    {\includegraphics[width=0.65\linewidth]{./images/p4_spec_sens}} 
-    \caption{\textit{Sensitivity} (proportion of patients who were predicted to benefit from thrombolysis who were predicted to receive thrombolysis) and \textit{specificity} (proportion of patients who were predicted \textit{not} to benefit from thrombolysis who were predicted \textit{not} to receive thrombolysis) for each stroke team. The dotted line shows the hospitals on the Pareto front where there are no hospitals that have a better \textit{sensitivity} without a worse \textit{specificity}, or vice-versa }
-    \label{fig:hosp_shap_scatter}
+    \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[trim={0 0 0 1.2cm}, clip, width=1\textwidth]{./images/p3_clin_shap_sub_1}\\
+      \caption{The relationship between feature values and the prediction of whether a patient will have a good outcome (mRS 0-1) at discharge. SHAP base value for this model is -1.529.}
+      \label{fig:global_shap_mrs1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.8\textwidth}
+      \centering    
+      \includegraphics[width=1\textwidth]{./images/p3_clin_shap_sub_2.jpg}\\
+%      \includegraphics[trim={0 0 0 1.2cm}, clip, width=1\textwidth]{./images/083_xgb_7_features_5fold_binary_shap_violin_ss_0kfold}\\
+      \caption{The relationship between onset to thrombolysis time and the prediction of whether a patient will have a good outcome at discharge, for each of the mRS scores used to define a good outcome.}
+      \label{fig:global_shap_ott}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.8\textwidth}
+      \centering
+      \includegraphics[trim={0 0 0 1.2cm}, clip, width=1\textwidth]{./images/p3_clin_shap_sub_3}\\
+      \caption{The contribution from attending a specific hospital to predicting whether the patient will have a good outcome at discharge, for each of the mRS scores used to define a good outcome}
+      \label{fig:global_shap_hosp}
+    \end{subfigure}
+    \label{fig:global_shap_trio}
+  \caption{The relationship between feature values SHAP values in predicting whether a patient will have a good outcome. Violin plots show the distribution of SHAP values across the patient population for each feature value, with the mid-line showing the median SHAP value.} 
+\end{sidewaysfigure}
+
+%\FloatBarrier
+
+
+\subsubsection{The direct contribution of thrombolysis use to the shift in probability of a good outcome}
+
+We used the first k-fold train/test set split (4:1 train:test data) to investigate likely outcome from thrombolysis. For each patient in the test set that received thrombolysis within 300 minutes from stroke onset (n = 6,796), we performed a counterfactual analysis, predicting outcome probabilities if the patient had not received thrombolysis. We calculated the effect of thrombolysis by taking the difference in SHAP values, between treated and the predicted outcome if untreated, for the contribution of thrombolysis to achieving a good outcome.
+
+We modelled the decay in effect of thrombolysis by fitting a linear regression model to the benefit of thrombolysis (log odds shift in attaining a good outcome) with time from onset to treatment (excluding patients treated after 300 minutes). The model used the definition of mRS 0-1 as a good outcome to match the definition used in the meta-analysis of clinical trials \cite{emberson_effect_2014}. The analysis was applied to three patient cohorts: (1) all treated ischaemic strokes (n = 6,796), (2) treated severe ischaemic strokes, NIHSS 11+ (n = 2,856), (3) treated mild-moderate ischaemic strokes, NIHSS 0-10 (n = 3,940). 
+
+Figure \ref{fig:linear_regression_plots} shows a linear regression fitted to the shift in the contribution from receiving thrombolysis towards having a good outcome at discharge (mRS 0-1) with respect to the onset to thrombolysis time. We found, for all treated patients, that the effect of thrombolysis had declined to zero at 328 minutes, and the effect from thrombolysis was improving log odds of a good outcome by 0.90 if it were, theoretically, given at the time of stroke onset. We observed that the maximum theoretical effect of thrombolysis (if given at time of stroke onset) was greater for the severe stroke group (1.048 log odds) than the mild-moderate stroke group (0.771 log odds). However the effect of thrombolysis declined a little faster in the severe stroke group (reaching no effect at 314 minutes for severe stroke patients, compared to 351 minutes for mild-moderate stroke patients). Linear regression coefficients in all three patient groups were statistically significant (table \ref{fig:stats_table_mrs1}). 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.40\textwidth]{./images/p3_regression_v1}\\
+    \caption{A linear regression fit to the contribution from receiving thrombolysis in having a good outcome (mRS 0-1) at discharge, with respect to the onset to thrombolysis time (for patients treated within 300 minutes). Top: all treated stroke patients (n = 6,796); Middle: treated severe stroke patients, NIHSS 11+ (n = 2,856); Bottom: treated mild-moderate stroke patients, NIHSS 0-10 (n = 3,940).}
+    \label{fig:linear_regression_plots}
 \end{figure}
 
+\begin{table}
+    \caption{Fitting linear regression to the shift in the contribution from receiving thrombolysis towards having a good outcome (mRS 0-1) at discharge with respect to the onset to thrombolysis (OTT) time. Linear regression statistics for different patient cohorts. We used NIHSS 0-10 to define mild-moderate strokes, and NIHSS 11+ to define severe strokes.}
+    \centering
+        \begin{tabular}{lllllllll}
+        \toprule
+         Ischaemic stroke type & Variables & coef & std err & t & P$>$$|$t$|$ & [0.025 & 0.975] \\ 
+         \midrule
+        All & Constant & 0.9012 & 0.007 & 132.519 & 0.000 & 0.888 & 0.915\\
+        & OTT time (min) &  -0.0027  & 4.04e-05 & -68.058 & 0.000 & -0.003 & -0.003\\   
+        \midrule
+        Severe & Constant & 1.0476  &    0.011  & 96.746 & 0.000 & 1.026 & 1.069\\
+        & OTT (mins) & -0.0033 &  6.67e-05  & -50.042 & 0.000 & -0.003 & -0.003\\ 
+        \midrule
+        Mild-moderate & Constant &           0.7708 &     0.008   & 97.613 & 0.000 & 0.755 & 0.786\\
+        & OTT time (mins) &  -0.0022 &   4.57e-05 & -48.109 & 0.000 & -0.002 & -0.002\\
+        \bottomrule
+        \end{tabular}
+      \label{fig:stats_table_mrs1}
+\end{table}
 
 \subsection{Conclusions}
 
-We found general agreement between actual thrombolysis use and best predicted outcomes, though we found decisions based on the outcome model would support higher use of thrombolysis than is actually the case. Of those who did not receive thrombolysis, the outcome model predicted that nearly half of them would have likely benefited from thrombolysis. Of those that did receive thrombolysis we found about one in four may be being given thrombolysis without there being predicted clear overall benefit. There was an apparent trade-off in decision-making between hospitals. Those hospitals who gave thrombolysis to more patients who would benefit from it (higher \textit{sensitivity}) were also more likely to give thrombolysis to more patients who would not benefit from it (lower \textit{specificity}). This represents a trade-off between `\textit{Miss no benefit}' and `\textit{Do no harm}'. Maximising benefit while minimising harm is likely to require more sophisticated guidance on use of thrombolysis, such as that indicated by our model.
+Using machine learning methods with SHAP in a very large prospective national stroke registry, thrombolysis was found to be associated with a statistically significant improvement in the odds of having a good outcome using any mRS threshold. Regression analysis predicted a maximum 2.5-fold improvement in odds of achieving mRS 0-1, with a decline to no treatment effect at 5 hours 28 minutes post-onset. The findings from this study were remarkably similar to the meta-analysis of clinical trials 8, which extrapolate back to a 0.69 log odds (equivalent to an odds ratio of 2.0) improvement of being mRS 0-1 at stroke onset, with no effect after 6 hours 18 minutes.
