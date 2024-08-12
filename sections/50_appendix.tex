@@ -117,3 +117,124 @@ Proportion discharged mRS 5-6 & 119 & 0.254 & 0.051 & 0.147 & 0.221 & 0.253 & 0.
 \end{longtable}
 \normalsize
 \end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Review of objectives set in original bid}
+\label{sec:objectives_met}
+
+The following outlines the key objectives set out in the original bid, and what has been delivered:
+
+\subsection{Objective 1: Expansion of SAMueL-1 modelling}
+
+\subsubsection{Objective}
+
+Expansion of previous (SAMueL-1) modelling to include: 1) outcome and adverse event prediction at patient-level, 2) inclusion of pre-hospital times in pathway model, 3) use of organisational factors (such as staffing) in predicting use of thrombolysis, and 4) piloting of a model that incorporates use of thrombectomy alongside thrombolysis.
+
+\subsubsection{Project outputs}
+
+All objectives were achieved and reported:
+
+\begin{itemize}
+    \item Outcome models are reported and used in sections \ref{sec:paper_3}, \ref{sec:paper_4}, and \ref{sec:paper_5}. Outcome and adverse event prediction at patient-level were predicted in the patient-level outcome model. We chose to use an all-cause beneficial/adverse outcome, rather than specific adverse events such as thrombolysis-induced haemorrhage. This was because we were primarily interested in net benefit or disbenefit from thrombolysis. Adverse outcomes associated with thrombolysis were taken as increased risk of severe death or disability (mRS 5-6). Outcome prediction was a very substantial part of this project, and included.
+    \begin{itemize}
+        \item Development of models that predict probability of outcome across all disability (mRS) levels, and separate models to predict being within any given disability threshold on discharge.
+        \item The addition of Shapley values (SHA) to outcome predictions, allow us to show, and analyse the contribution of individual features (such as use/time of thrombolysis) to patient outcomes.
+        \item A comparison of the observed effect of thrombolysis (from our analysis) with clinical trial meta0analysis of thrombolysis.
+        \item A comparison of who receives thrombolysis with who will benefit from thrombolysis (from our outcome models).
+    \end{itemize}
+    \item Pre-hospital times (ambulance response and on-scene times) were included in the pathway model, and were used as a possible scenario for improvement (see section \ref{sec:paper_5}).    
+    \item We performed a multiple regression analysis on organisational factors from the SSNAP audit. We did not find any significant link to willingness to use thrombolysis (see \ref{sec:other_outputs}).
+    \item We performed a pilot model on the benefit from thrombectomy (and confirmed a beneficial effect that declines over time). The data set was small for this intervention and more work will be required to make this work suitable for publication (we have included pilot work in section \ref{sec:other_outputs} (\textit{Other project outputs} as results should be considered indicative rather than at a level suitable for robust peer review.)       
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objective 2: Incorporation of health economic outcomes}
+
+\subsubsection{Objective}
+
+Incorporation of health economic outcomes (Quality Adjusted Life Years, QALYs): These will be adapted from other NIHR projects involving this team that have already developed health economic models for thrombolysis in acute ischaemic stroke.
+
+This objective was achieved and reported:
+
+\subsubsection{Project outputs}
+
+\begin{itemize}
+    \item A health economics model for stroke has been coded by the SAMueL team and is available on GitHub (\url{https://github.com/stroke-optimist/stroke-lifetime} and available for installation on Python from PyPI (\url{https://pypi.org/project/stroke-lifetime/}).
+    \item The effect of thrombolysis on, life expectancy, QALYs, NHS care costs, and cost per QALY are included in section \ref{sec:paper_5}.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objective 3: Promote acceptance of the modelling by increased transparency and explainability}
+
+\subsubsection{Objective}
+
+Promote acceptance of the modelling by increased transparency and explainability: 1) make use of Shapley values to show the contribution of individual features to the prediction that the model is making, 2) improved methods for clustering of patients to clarify patterns of differences in clinical decision-making between hospitals and to allow identification of ‘similar hospitals’ (by patient population) for comparison, 3) investigation of bias in model (e.g. accuracy analysis by patient subgroups), 4) generation of dashboards and other interrogative methods.
+
+
+\subsubsection{Project outputs}
+
+All objectives were achieved and reported, except we did not have the data to analyse model accuracy by key demographic groups (as we were concerned about possible identification of people by inclusion of ethnicity; though we have a plan for for for future work):
+
+\begin{itemize}
+    \item Shapley values have been used extensively to explore the relationship between patient features and model predictions (thrombolysis use, and outcomes). These have been performed at patient and population level. See sections \ref{sec:paper_2}, \ref{sec:paper_3}, \ref{sec:paper_4}.
+    \item We identified key characteristics of patients where stroke teams make different decisions and condensed these into prototype patients. This allowed us to identify stroke teams that were, for example, less likely to give thrombolysis to patients with mild stroke, pre-stroke disability or with imprecisely known stroke onset times. See sections \ref{sec:paper_2} and \ref{sec:paper_5}.
+    \item Shapely values help reveal 'bias' in the model by showing how patient features affect model predictions. We did not analyse accuracy by subgroup. In our final data request we did not include ethnicity as we had some concern about identification of patients in small minority groups. In future work we will ask for 2-3 ethnic groups and include others as 'other' and we will reduce the granularity of other data (such as month of attendance) to avoid possible identification. This will allow us to perform an analysis of thrombolysis use and outcomes, and model accuracy by ethnicity. We will also access decile of Index of Multiple Deprivation to perform similar analysis by this index.
+    \item Our models have been made available as web app dashboard: \url{https://stroke-predictions.streamlit.app/}. At this stage we have not included patient-level outcome predictions due to a concern that it could be used for clinical decision-making. 
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objective 4: Generation of synthetic data and artificial patient vignettes}
+
+\subsubsection{Objective}
+
+Generation of synthetic data and artificial patient vignettes: 1) build on pilot work already performed for generating synthetic patient-level stroke data that may be shared freely and used for discussion of ’virtual’ patients, 2) automatic generation of artificial clinical vignettes from real or synthetic SSNAP data.
+
+\subsubsection{Project outputs}
+
+These objectives were achieved, but in a slightly different way to planned:
+
+\begin{itemize}
+    \item We were able to make artificial patient data by crudely sampling key patient characteristics, but then allocating thrombolysis use and outcomes based on model predictions based on real patients. These data are made available in the project code demonstration GitHub repository: \url{https://stroke-predictions.streamlit.app/}.
+    \item As we simplified models to as few patient features as necessary for good predictions we are able to describe patients succinctly. We also developed \textit{prototype patients} that could be used to compare outcomes (see section \ref{sec:paper_5}).    
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Objective 5: Co-production of project outputs with clinicians to promote acceptance and use for local quality improvement}
+
+\subsubsection{Objective}
+
+\textbf{Original objective:}
+
+Co-production of project outputs with clinicians to promote acceptance and use for local quality improvement: By using both information gathering (through interviews) and intervention refinement (in workshops) we will incrementally modify and improve the content and style of our intervention (SAMueL tool). Working with our Public and Patient Involvement (PPI) group we will also produce key public-facing output.
+
+\textbf{Amended objective}
+
+With agreement of NIHR (through a \textit{Variation to Contract} agreement) the qualitative approach was altered to:
+
+What should a machine-learning model based on SSNAP data look like, do, and deliver if it is to optimise improvement, and reduce unwarranted variation, in thrombolysis?
+
+\begin{enumerate}
+    \item To generate empirically and theoretically informed knowledge about how thrombolysis is currently delivered, centred on physicians’ views, understandings, and practices.
+    \item To learn more about how stroke physicians’ and staff think and feel about or use SSNAP, and about the use of machine learning in improving clinical practice.
+\end{enumerate}
+
+
+\subsubsection{Project outputs}
+
+All objectives of the revised objectives were met (section \ref{sec:paper_1}).
+
+Using the NASS framework we identified three learning points which, if addressed, may facilitate further implementation of the technology. 
+
+\begin{itemize}
+    \item Given reservations expressed by some of our participants and healthcare professionals elsewhere about the underpinning SSNAP data it seems important to ensure that intended adopters are reassured about the integrity of modelling based on this data.
+    \item Evidence from this research and elsewhere indicates that the ED physicians’ may have less confidence in the evidence base for, and safety of thrombolysis. It is therefore likely that more work will need to be done with the ED physician community to build trust in the SAMuel-2 technology: recruiting ED physicians as brokers/clinical champions may help to address this.
+    \item Perceived lack of funding/resource and stroke workforce shortages may impede quality improvement and adoption of new technologies such as SAMueL-2
+\end{itemize}

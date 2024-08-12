@@ -5,39 +5,40 @@
 
 Use of thrombolysis to treat emergency stroke patients varies considerably between hospitals. Previous work has shown that the majority of this variation comes from between-hospital decision-making on which patients should receive thrombolysis.
 
-\textbf{Key objectives}
+\textbf{Key objectives} % Probably need reducing for abstract
 
 \begin{itemize}
 
-    \item Generate empirically and theoretically informed knowledge about how thrombolysis is currently delivered, centred on physicians’ views, understandings, and practices.
+    \item Use qualitative methodologies to ask \textit{"What should a machine-learning model based on SSNAP data look like, do, and deliver to optimise improvement, and reduce unwarranted variation, in thrombolysis?"}
+
+    \item Model and predict stroke outcomes and effect of thrombolysis.
+
+    \item Use explainable machine learning to investigate what affects a patient receiving thrombolysis, and their disability at discharge. Use \textit{prototype patients} to further illustrate the relationship between patient features and model outcomes.
     
-    \item Learn how stroke physicians’ and staff think and feel about the use of machine learning based on SSNAP in improving clinical practice, and identify barriers for it's use.
+    \item Incorporate health economics in patient outcome modelling.
 
-    \item Understand how patient characteristics affect decisions to use, or not use, thrombolysis at each hospital.
+    \item Model patient flow from stroke onset to disability at disability at discharge.
 
-    \item Predict expected outcomes for patients, with and without thrombolysis, and investigate whether hospitals with higher use of thrombolysis are likely to be generating more patient benefit. 
+    \item Generate a dashboard to interrogate the model.
+
+    \item Generate artificial patient data to demonstrate/illustrate models.
+
+    \item Investigate how organisation factors affect willingness to thrombolyse.
     
-    \item Model patient flow (including ambulance response times) and predict how process changes would affect thrombolysis use and benefit.
-
-    \item Predict how thrombolysis affects quality-adjusted life years (QALYs).
-
-    \item Investigate how well organisation factors predict thrombolysis use, to identify whether aspects of the organisation impacts the decision to treat.
-    
-    \item Co-production of project outputs with clinicians to promote acceptance and use for local quality improvement.
-
-    \item Generation of a web-based dashboard to allow clinicians to interrogate modelling.
+    \item Pilot model to predict outcomes after thrombectomy.   
 
 \end{itemize}
+
 
 \textbf{Methods}
 
 \begin{itemize}
 
-    \item Co-production and qualitative research used observation, semi-structured interviews, and review of NHS documents.
+    \item \textbf{Co-production and qualitative research} used observations, meetings, semi-structured interviews, and review of NHS documentation.
 
-    \item  Thrombolysis decisions and outcomes (with and without thrombolysis) were predicted using XGBoost machine learning, with Shapley values  generated to show the contribution of individual features to the prediction.
+    \item \textbf{Thrombolysis decisions and patient outcomes} were predicted using XGBoost machine learning models, employing Shapley values to explain individual feature contributions.
 
-    \item Patient flow through the emergency stroke pathway was modelled with Monte-Carlo simulation, and a mathematical model of outcome based on  clinical trial results.
+    \item Scenarios of \textbf{patient flow through the emergency stroke pathway} was modelled with Monte-Carlo simulation, and a mathematical model of outcome based on clinical trial results.
     
 \end{itemize}
 
@@ -58,7 +59,7 @@ Use of thrombolysis to treat emergency stroke patients varies considerably betwe
 
 \textbf{Conclusions}
 
-We combined qualitative research and large-scale observational data with machine learning on use of, and outcomes from, thrombolysis. Both qualitative research and machine learning revealed significant between-hospital variation in which patients receive thrombolysis. Machine learning revealed that who will benefit from thrombolysis is patient-specific, and not easily captured in a simple medicine use label, but we found overall that stroke teams with a higher willingness to use thrombolysis are predicted to be generating better patient outcomes at a population level.
+Using large-scale observational data and machine learning, thrombolysis, in real world use, was found to have at least as much benefit as predicted by the thrombolysis clinical trial meta-analysis. Both qualitative research and machine learning revealed significant between-hospital variation in which patients receive thrombolysis, which is leading to significant between-hospital variation in thrombolysis use and outcomes. Machine learning revealed that who will benefit from thrombolysis is patient-specific, and not easily captured in a simple medicine use label, but we found overall that stroke teams with a higher willingness to use thrombolysis are predicted to be generating better patient outcomes at a population level.
 
 \section*{Plain Language Summary}
 \addcontentsline{toc}{section}{Plain Language Summary}
