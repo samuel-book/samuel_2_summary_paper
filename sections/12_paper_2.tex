@@ -6,7 +6,8 @@ To understand, using explainable machine learning, between-hospital variation in
 
 \subsection{Methods overview}
 
-Data describing the 88,928 emergency stroke patients who arrived at 132 different stroke teams within 4 hours of stroke onset (from 2016 to 2018) were used to train a machine learning model (XGBoost\cite{chen_xgboost_2016}) to learn which patients would receive thrombolysis at each stroke team. Shapley (SHAP) values were calculated for each prediction, providing estimates of how patient features, and hospital identity, influence the odds of receiving thrombolysis \cite{lundberg_unified_2017}.
+
+Data were retrieved for 246,676 emergency stroke admissions to acute stroke teams in England and Wales for the years 2016–2018, obtained from the Sentinel Stroke National Audit Programme (SSNAP). Data fields were provided for the hyper-acute phase of the stroke pathway, up to and including our target feature: receive thrombolysis. Of these patients, 88,792 were used in this modelling study: arrived within 4 hours of known stroke onset, had onset out of hospital, had an arrival to scan time recorded, and attended a hospital with at least 300 emergency stroke admissions and at least 10 thrombolysis procedures. A 4 hours onset-to-arrival cut-off was used to allow for 30 minutes for scan and thrombolysis to be within the allowed 4.5 onset-to-thrombolysis time. The data included 132 acute stroke hospitals. We trained a machine learning model (XGBoost\cite{chen_xgboost_2016}) to learn which patients would receive thrombolysis at each stroke team. Shapley (SHAP) values were calculated for each prediction, providing estimates of how patient features, and hospital identity, influence the odds of receiving thrombolysis \cite{lundberg_unified_2017}.
 
 Code, and full results, for the machine learning work may be found at 
  \url{https://samuel-book.github.io/samuel_shap_paper_1}
@@ -15,16 +16,17 @@ Code, and full results, for the machine learning work may be found at
 
 \subsection{Feature selection}
 
-The best model with 1, 2, 5, 10, 25 \& all 83 original features had ROC AUCs of 0.715, 0.792, 0.891, 0.919, 0.923 \& 0.922. We selected 10 features for all subsequent work, which were:
+The best model with 1, 2, 5, 10, 25 \& all 83 original features had ROC AUCs of 0.716, 0.792, 0.893, 0.919, 0.923 \& 0.922. We selected 10 features for all subsequent work, which were:
 
 \begin{itemize}
+    % codeing of data (e.g. 0/1 or yes/no not needed here)
     \item \emph{Arrival-to-scan time}: Time from arrival at hospital to scan (minutes)
-    \item \emph{Infarction}: Stroke type (1 = infarction, 0 = haemorrhage)
+    \item \emph{Infarction}: Stroke type (infarction/haemorrhage)
     \item \emph{Stroke severity}: National Institutes of Health Stroke Scale (NIHSS) score on arrival
-    \item \emph{Precise onset time}: Onset time (1 = precise, 0 = best estimate)
+    \item \emph{Precise onset time}: Onset time (\textit{precise}, or \textit{best estimate})
     \item \emph{Prior disability level}: Estimated mRS score prior to stroke
     \item \emph{Stroke team}: Stroke team attended (hospital identifier)
-    \item \emph{Use of atrial fibrillation (AF) anticoagulants}: Use of prior anticoagulant for atrial fibrillation (1 = Yes, 0 = No)
+    \item \emph{Use of atrial fibrillation (AF) anticoagulants}: Use of prior anticoagulants for atrial fibrillation.
     \item \emph{Onset-to-arrival time}: Time from onset of stroke to arrival at hospital (minutes)
     \item \emph{Onset during sleep}: Did stroke occur in sleep? (1 = Yes, 0 = No)
     \item \emph{Age}: Age (as midpoint of 5 year age bands)
@@ -67,7 +69,7 @@ Global patterns of how feature values affect the odds of receiving thrombolysis 
 Figure \ref{fig:global_shap} shows the relationship between patient characteristics and the log odds of receiving thrombolysis. Key observations are (with SHAP influence converted from log-odds to odds):
 
 \begin{itemize}
-    \item \emph{Stroke type}: The SHAP values for stroke type show that the model effectively eliminated any probability of receiving thrombolysis for non-ischaemic (haemorrhagic) stroke, with the odds of receiving thrombolysis falling by over 6,000-fold.
+    \item \emph{Stroke type}: The SHAP values for stroke type show that the model effectively eliminated any probability of receiving thrombolysis for non-ischaemic (haemorrhagic) stroke.
     \item \emph{Arrival-to-scan time}: The odds of receiving thrombolysis reduced by about 9-fold over the first 120 minutes of arrival-to-scan time.
     \item \emph{Stroke severity (NIHSS)}: The odds of receiving thrombolysis were lowest at NIHSS 0, increased and peaked at NIHSS 15-25, and then fell again with higher stroke severity (NIHSS above 25). The difference between minimum odds (at NIHSS 0) and maximum odds (at 15-25) of receiving thrombolysis was 25 to 30-fold.
     \item \emph{Stroke onset time type (precise vs. estimated)}: The odds of receiving thrombolysis were about 3-fold greater for precise onset time than estimated onset time.
