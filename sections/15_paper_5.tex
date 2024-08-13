@@ -12,9 +12,9 @@ This work combined four models:
 
 \begin{enumerate}
 
-    \item \textit{Thrombolysis decision model}: An XGBoost machine learning model \cite{chen_xgboost_2016} was used to learn which patients would receive thrombolysis at each stroke team. Stroke team SHAP values were used to identify 25 \textit{benchmark teams} most likely to use thrombolysis. For each patient a \textit{benchmark decision} was predicted, which was the majority vote of the expected decision for that patient at the 25 \textit{benchmark teams}.
+    \item \textit{Thrombolysis decision model}: An XGBoost machine learning model \cite{chen_xgboost_2016} was used to learn which patients would receive thrombolysis at each stroke team. Stroke team SHAP values were used to identify 25 \textit{benchmark teams} most likely to use thrombolysis. For each patient a \textit{benchmark decision} was predicted, which was the majority vote of the expected decision for that patient at the 25 \textit{benchmark teams}. This is based on the model as described in section \ref{sec:paper_2}.
 
-    \item \textit{Outcome model}: A XGBoost machine learning model was used to predict outcome (mRS probability distribution) for each patient.
+    \item \textit{Outcome model}: A XGBoost machine learning model was used to predict outcome (mRS probability distribution) for each patient. This is based on the model as described in section \ref{sec:paper_4}.
 
     \item \textit{Patient pathway flow}: Monte-Carlo simulation was used to model the flow of patients through the emergency stroke pathway at each hospital, taking into account both average speeds and variation. When examining the effect of improving patient flow, clinical outcome is predicted as the number of \textit{excellent outcomes} (mRS 0-1) per 1,000 admissions using a previously described mathematical model \cite{allen_estimation_2020}.
 
@@ -51,11 +51,11 @@ The combined model may be used to examine a range of possible changes to improve
 
     \item \textit{Base}: Uses the hospitals’ recorded pathway statistics.
 
-    \item \textit{Speed}: Sets 95\% of patients having a scan within 4 hours of arrival, and all patients have 15 minutes arrival-to-scan time and 15 minutes scan-to-needle time.
+    \item \textit{Speed}: Sets 95\% of patients having a scan within 4 hours of arrival (other assumed to be late scan, due to atypical stroke symptoms), and all patients have 15 minutes arrival-to-scan time and 15 minutes scan-to-needle time.
 
     \item \textit{Ambo}: Subtracts 15 minutes from the current ambulance-call to arrival-at-hospital times.
 
-    \item  \textit{Onset-known}: Sets the proportion of patients with a known stroke onset time to the national upper quartile if currently less than the national upper quartile.
+    \item  \textit{Onset-known}: Sets the proportion of patients with a known stroke onset time to the national upper quartile (79.6\%) if currently less than the national upper quartile.
 
     \item \textit{Benchmark}: The benchmark thrombolysis rate takes the likelihood to give thrombolysis for patients scanned within 4 hours of onset from the majority vote of the 25 benchmark hospitals (see above).
 
@@ -70,7 +70,7 @@ Code, with demonstration, is available at \url{https://github.com/samuel-book/sa
 
 \subsection{Model accuracy}
 
-Using an 4:1 train:test split, the thrombolysis decision model had an accuracy of 85\%, a balanced accuracy of 82\% (accuracy and balanced accuracy using a 50\% probability cut-off to classify a patient as a binary `likely to receive thrombolysis' or not), and a receiver operating characteristic area under curve of 0.92. The stroke outcome model had a receiver operating characteristic area under curve of 0.80.
+Using an 4:1 train:test split, the thrombolysis decision model had an accuracy of 85\%, a balanced accuracy (mean of sensitivity and specificity) of 82\% (accuracy and balanced accuracy using a 50\% probability cut-off to classify a patient as a binary `likely to receive thrombolysis' or not), and a receiver operating characteristic area under curve of 0.92. The stroke outcome model had a receiver operating characteristic area under curve of 0.80.
 
 \subsection{Benchmark stroke teams and benchmark decisions}
 
@@ -78,7 +78,7 @@ Using an 4:1 train:test split, the thrombolysis decision model had an accuracy o
 
 Figure \ref{fig:thrombolysis_rates_teams} compares observed and predicted thrombolysis use (based on historic performance, and applying \textit{benchmark decisions}). Predicted and observed thrombolysis use correlate very closely (r-squared 0.94). Predicted rates were, on average, slightly higher (1.7\%) than observed rates.
 
-\begin{figure}[!h]
+\begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{images/p5_benchmark_rates.png}
     \caption{Comparison of observed and predicted thrombolysis use across stroke teams. Blue circles show predictions based on historic hospital performance. Red circles show the expected thrombolysis use if \textit{benchmark decisions} were made. The black dotted line shows least-squares regression analysis between observed and predicted (using historic performance) thrombolysis use.}
@@ -150,10 +150,10 @@ Table \ref{tab:health_econ} shows the modelled health economics of thrombolysis 
 
 \begin{subtable}{1\textwidth}
 \centering
-\caption{Counterfactual analysis of the effect of thrombolysis in either those patients who actually received thrombolysis, or those patients where the \textit{benchmark decision} would be to use thrombolysis.}
+\caption{Analysis of the predicted effect of thrombolysis in two population subgroups: 1) those patients who actually received thrombolysis, or 2) those patients where the \textit{benchmark decision} would be to use thrombolysis. For each populations the outcomes with and without thrombolysis were predicted.}
 \begin{tabular}{p{2.0cm} p{1.5cm} p{1.2cm} p{1.3cm} p{1.5cm} p{1.3cm} p{1.4cm} p{1.3cm} p{1.3cm}}
 \toprule
-Population & \raggedright Modelled treatment & Death & Survival (median years) & Care years (median) & QALYs & \raggedright Discounted cost per patient & Proportion mRS 0-2 & Proportion mRS 5-6\tabularnewline
+Modelled population & \raggedright Modelled treatment & Death & Survival (median years) & Care years (median) & QALYs & \raggedright Discounted cost per patient & Proportion mRS 0-2 & Proportion mRS 5-6\tabularnewline
 \midrule
 Actual use & Untreated & 17.1\% & 7.60 & 0.28 & 5.020 & £20,370 & 47.1\% & 23.9\%\tabularnewline
 & Treated & 14.2\% & 7.91 & 0.25 & 5.258 & £19,806 & 53.9\% & 19.3\%\tabularnewline
@@ -173,7 +173,7 @@ Benchmark & Untreated & 17.4\% & 7.63 & 0.28 & 5.036 & £20,388 & 46.5\% & 24.1\
 \caption{Analysis for 1,000 emergency stroke admissions (all stroke types)}
 \begin{tabular}{p{1.9cm} p{1.9cm} p{1.9cm} p{1.9cm} p{1.9cm} p{1.9cm} p{2.2cm}}
 \toprule
-Population & Proportion treated & QALYs added & Healthcare costs saved & \raggedright Thrombolysis cost (£450 per patient) & \raggedright Cost per QALY added & \raggedright Net cost of thrombolysis\tabularnewline
+Modelled population & Proportion treated & QALYs added & Healthcare costs saved & \raggedright Thrombolysis cost (£450 per patient) & \raggedright Cost per QALY added & \raggedright Net cost of thrombolysis\tabularnewline
 \midrule
 Actual & 11.0\% & 26.3 & £62,294 & £49,658 & £1,890 & -£12,637\tabularnewline
 Benchmark & 13.6\% & 31.7 & £81,914 & £61,117 & £1,927 & -£20,797\tabularnewline

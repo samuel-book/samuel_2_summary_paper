@@ -7,7 +7,7 @@ To understand, using explainable machine learning, between-hospital variation in
 \subsection{Methods overview}
 
 
-Data were retrieved for 246,676 emergency stroke admissions to acute stroke teams in England and Wales for the years 2016–2018, obtained from the Sentinel Stroke National Audit Programme (SSNAP). Data fields were provided for the hyper-acute phase of the stroke pathway, up to and including our target feature: receive thrombolysis. Of these patients, 88,792 were used in this modelling study: arrived within 4 hours of known stroke onset, had onset out of hospital, had an arrival to scan time recorded, and attended a hospital with at least 300 emergency stroke admissions and at least 10 thrombolysis procedures. A 4 hours onset-to-arrival cut-off was used to allow for 30 minutes for scan and thrombolysis to be within the allowed 4.5 onset-to-thrombolysis time. The data included 132 acute stroke hospitals. We trained a machine learning model (XGBoost\cite{chen_xgboost_2016}) to learn which patients would receive thrombolysis at each stroke team. Shapley (SHAP) values were calculated for each prediction, providing estimates of how patient features, and hospital identity, influence the odds of receiving thrombolysis \cite{lundberg_unified_2017}.
+Data were retrieved for 246,676 emergency stroke admissions to acute stroke teams in England and Wales for the years 2016–2018, obtained from the Sentinel Stroke National Audit Programme (SSNAP). Data fields were provided for the hyper-acute phase of the stroke pathway, up to and including our target feature: receive thrombolysis. Of these patients, 88,928 were used in this modelling study: arrived within 4 hours of known stroke onset, had onset out of hospital, had an arrival to scan time recorded, and attended a hospital with at least 300 emergency stroke admissions and at least 10 thrombolysis procedures. A 4 hours onset-to-arrival cut-off was used to allow for 30 minutes for scan and thrombolysis to be within the allowed 4.5 onset-to-thrombolysis time. The data included 132 acute stroke hospitals. We trained a machine learning model (XGBoost\cite{chen_xgboost_2016}) to learn which patients would receive thrombolysis at each stroke team. Shapley (SHAP) values were calculated for each prediction, providing estimates of how patient features, and hospital identity, influence the odds of receiving thrombolysis \cite{lundberg_unified_2017}.
 
 Code, and full results, for the machine learning work may be found at 
  \url{https://samuel-book.github.io/samuel_shap_paper_1}
@@ -80,7 +80,7 @@ Figure \ref{fig:global_shap} shows the relationship between patient characterist
     \item \emph{Onset during sleep}: The odds of receiving thrombolysis were about 4-fold lower for onset during sleep.
 \end{itemize}
 
-\begin{figure}[ht!]
+\begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{images/p2_patient_shap.jpg}
     \caption{Box plots showing the relationship between SHAP values and feature values. Box plots show inter-quartile range (box), median (mid-line in box), and range (whiskers). The plots are ordered in ranked feature importance (using the mean absolute SHAP value across all instances)}

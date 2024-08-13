@@ -1,5 +1,72 @@
-\section*{Abstract} %* makes it not numbered
-\addcontentsline{toc}{section}{Abstract} %Add non-numbered section to table of contents
+\documentclass{article}
+
+% Formatting
+\DeclareUnicodeCharacter{2060}{\nolinebreak} % Prevent unicode (U+2060) error on local complile
+\frenchspacing % No double spacing between sentences
+\hbadness=1000000 % Turn off \hbox badness warnings
+\linespread{1.2} % Set linespace
+
+
+% Packages
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1.2cm, bottom=1.5cm]{geometry}
+\usepackage{authblk} % For author formatting
+\usepackage{caption} % For figure and table captions
+\usepackage{cclicenses} % For creative commons license
+\usepackage{float} % To force figure location after text
+\usepackage{graphicx} % Adds more functionality to graphics for inclusion of figures
+\usepackage{lscape} % For landscape pages
+\usepackage{lineno} % Allows use of \linenumbers to add line numbers 
+\usepackage{lmodern} % A scalable font - avoids erros due to non-sclabale fonts
+\usepackage{longtable,booktabs}  % For tables
+\usepackage{markdown} % Allow use of markdown syntax
+\usepackage{microtype} % 'Improved' typesetting
+\usepackage[nottoc,numbib]{tocbibind} % Add references to table of contents
+\usepackage{parskip} % Adds white space between paragraphs
+\usepackage{pdflscape} % To create landscape pages that show as landscape in PDF viewer
+\usepackage{placeins} % to use \FloatBarrier where want a hard break between content (to force and order of text and figures
+\usepackage{ragged2e} % Better right ragged edges (allows hyphenation)
+\usepackage{subcaption} % Allows use of subfigures
+\usepackage[super]{natbib} % Citations using superscript
+\usepackage{titlesec} % For title spacing
+\usepackage[toc,page]{appendix}
+\usepackage{url} % Tidy web links
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage{xcolor} % For coloured text
+\usepackage{xurl} % For url but with more flexible linebreaking
+
+
+% Choose your own colour
+\usepackage{color}
+\newcommand{\mjanote}[2][\textcolor{red}{\dagger}]{\textcolor{red}{$#1$}\marginpar{\color{red}\raggedright\tiny$#1$ #2}}
+\newcommand{\mjaFIXME}[1]{\textcolor{red}{[\textbf{FIXME} \textsl{#1}]}}
+\newcommand{\kpnote}[2][\textcolor{magenta}{\dagger}]{\textcolor{magenta}{$#1$}\marginpar{\color{magenta}\raggedright\tiny$#1$ #2}}
+\newcommand{\kpFIXME}[1]{\textcolor{magenta}{[\textbf{FIXME} \textsl{#1}]}}
+
+
+% Info on wordcounts:
+% https://www.overleaf.com/learn/how-to/Is_there_a_way_to_run_a_word_count_that_doesn%27t_include_LaTeX_commands%3F
+
+% To include refs in word count:
+%TC:incbib
+
+\newcommand{\detailtexcount}[1]{%
+  \immediate\write18{texcount -merge -sum -q #1.tex output.bbl > #1.wcdetail }%
+  \verbatiminput{#1.wcdetail}%
+}
+
+% Count tables in wordcount
+
+%TC:group table 0 1
+%TC:group tabular 1 1
+
+\begin{document}
+
+
+
+\section*{\centering{SAMueL-2: Stroke Audit Machine Learning}}
+
+\section{Abstract}
 
 \textbf{Background}
 
@@ -50,15 +117,10 @@ Use of thrombolysis to treat emergency stroke patients varies considerably betwe
 
 Using large-scale observational data and machine learning, thrombolysis, in real world use, was found to have at least as much benefit as predicted by the thrombolysis clinical trial meta-analysis. Both qualitative research and machine learning revealed significant between-hospital variation in which patients receive thrombolysis, which is leading to significant between-hospital variation in thrombolysis use and outcomes. Machine learning revealed that who will benefit from thrombolysis is patient-specific, and not easily captured in a simple medicine use label, but we found overall that stroke teams with a higher willingness to use thrombolysis are predicted to be generating better patient outcomes at a population level.
 
-\section*{Plain Language Summary}
-\addcontentsline{toc}{section}{Plain Language Summary}
+\input{sections/05_paper_overview}
 
-\textbf{What is the problem?} Use of clot-busting treatment (`\textit{thrombolysis}') in stroke varies a great deal between hospitals.
+\bibliographystyle{naturemag}
+\bibliography{references}
 
-\textbf{What did we know?} We knew that the largest cause of this variation was in how doctors decide which patients are suitable for thrombolysis. Some doctors are worried that the risk from this treatment can outweigh the benefits, and that use of this treatment in the real world won’t have the same benefit that was predicted by the clinical trials.
 
-\textbf{What did we not know?} We did not know (1) how the variation in use of thrombolysis was affecting patient outcomes, (2) what it was about the patients that doctors considered when making decisions, (3) what most affected patient outcome, (4) what doctors would think of using \textit{machine learning} (where a computer learns patterns in data) to help understand answers to these questions.
-
-\textbf{What did we do?} We used machine learning to learn which patients different hospitals would give thrombolysis to, and to learn which patients would likely have a better outcome if this treatment was used.
-
-\textbf{What did we find out?} We found out that thrombolysis was at least as effective in real use as clinical trials predicted, and that hospitals choosing to use it more are very likely saving more lives and reducing disability from stroke. We now understand what doctors look at when deciding to use it or not, and what affects patient outcomes. We found that speeding up giving this treatment would increase the number of people who would receive it, and by everyone receiving it sooner would mean they would each benefit more from it. We now understand that hospitals are making a delicate treatment decision between ‘Miss no benefit’ and ‘Do no harm’, and that many factors contribute to making this complex decision correctly. We found that doctors were interested in our work, but they need to be convinced our machine learning is right. We are hopeful that our results will give doctors greater confidence to use this treatment more often, and to always give it as fast as possible.
+\end{document}
